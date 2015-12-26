@@ -1,0 +1,3 @@
+# Required for allowing other containers to link to the ElasticSearch service
+# running in this container.
+network.host: _non_loopback_
