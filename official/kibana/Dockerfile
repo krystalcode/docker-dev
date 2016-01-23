@@ -1,7 +1,7 @@
 FROM kibana
 
 # Install Marvel plugin.
-RUN /opt/kibana/bin/kibana plugin --install elasticsearch/marvel/latest
+RUN gosu kibana /opt/kibana/bin/kibana plugin --install elasticsearch/marvel/latest
 
 # Install Sense plugin.
-RUN /opt/kibana/bin/kibana plugin --install elastic/sense
+RUN gosu kibana /opt/kibana/bin/kibana plugin --install elastic/sense
