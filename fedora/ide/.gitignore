@@ -1,0 +1,8 @@
+# Ignore temporary files and folders.
+tmp
+*~
+.*#
+\#*#
+
+# Ignore "ag" files.
+.agignore
