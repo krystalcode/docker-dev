@@ -19,6 +19,8 @@ RUN mkdir /src/kibana && \
 # Add the Kibana development configuration file.
 ADD ./kibana.dev.yml /src/kibana/config/
 
+WORKDIR /src
+
 # @Issue(
 #   "Install the Sense plugin"
 #   type="task"
