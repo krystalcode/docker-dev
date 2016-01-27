@@ -8,12 +8,14 @@ ENV NODE_VERSION 0.12.9
 RUN . $HOME/.nvm/nvm.sh && \
     nvm install $NODE_VERSION
 
-# @Issue(
-#   "Include the Kibana source code and install its node dependencies"
-#   type="improvement"
-#   priority="normal"
-# )
-#
+# Get the Kibana source code and install its node dependencies.
+RUN mkdir /src/kibana && \
+    curl -L https://github.com/elastic/kibana/archive/v4.3.1.tar.gz | \
+    tar -zxf - -C /src/kibana --strip-components=1 && \
+    cd /src/kibana && \
+    nvm use $NODE_VERSION && \
+    npm install
+
 # @Issue(
 #   "Install the Sense plugin"
 #   type="task"
