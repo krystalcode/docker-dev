@@ -1,0 +1,2 @@
+# The Elasticsearch instance to use for all queries.
+elasticsearch.url: "http://elasticsearch:9200"

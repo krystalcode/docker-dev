@@ -16,6 +16,9 @@ RUN mkdir /src/kibana && \
     nvm use $NODE_VERSION && \
     npm install
 
+# Add the Kibana development configuration file.
+ADD ./kibana.dev.yml /src/kibana/config/
+
 # @Issue(
 #   "Install the Sense plugin"
 #   type="task"
