@@ -5,6 +5,7 @@ Emacs-based development environment with some additional packages included.
 Packages included are:
 
 - emacs
+- ag (The Silver Searcher)
 - w3m (emacs browser)
 - git
 - patch
