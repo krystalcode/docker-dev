@@ -9,7 +9,7 @@ RUN . $HOME/.nvm/nvm.sh && \
     nvm install $NODE_VERSION
 
 # Get the Kibana source code and install its node dependencies.
-RUN mkdir /src/kibana && \
+RUN mkdir -p /src/kibana && \
     curl -L https://github.com/elastic/kibana/archive/v4.3.1.tar.gz | \
     tar -zxf - -C /src/kibana --strip-components=1 && \
     cd /src/kibana && \
