@@ -13,6 +13,7 @@ RUN mkdir -p /src/kibana && \
     curl -L https://github.com/elastic/kibana/archive/v4.3.1.tar.gz | \
     tar -zxf - -C /src/kibana --strip-components=1 && \
     cd /src/kibana && \
+    . $HOME/.nvm/nvm.sh && \
     nvm use $NODE_VERSION && \
     npm install
 
