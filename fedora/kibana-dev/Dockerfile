@@ -35,4 +35,4 @@ EXPOSE 5601
 #   type="task"
 #   priority="normal"
 # )
-CMD ["nvm use 0.12.9 && npm start"]
+CMD  . $HOME/.nvm/nvm.sh && nvm use 0.12.9 && cd /src/kibana && npm start
