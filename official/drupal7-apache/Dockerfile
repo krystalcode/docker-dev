@@ -24,7 +24,7 @@ RUN pip install --upgrade pip && pip install mycli
 # Install Drush.
 RUN curl -o /usr/local/bin/drush http://files.drush.org/drush.phar && \
     chmod +x /usr/local/bin/drush && \
-    drush init
+    drush -y init
 
 # Install 'composer'.
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
