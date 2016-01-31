@@ -17,4 +17,4 @@ EXPOSE 8081
 # Run the application.
 CMD . ${HOME}/.nvm/nvm.sh && \
     nvm use ${NODE_VERSION} && \
-    redis-commander
+    redis-commander --redis-host ${REDIS_HOST}
