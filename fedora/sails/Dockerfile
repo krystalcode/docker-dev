@@ -1,7 +1,7 @@
 FROM krystalcode/f_nvm
 
-# Install "git", required by "npm" and "bower" for installing some dependencies.
-RUN dnf -y install git && dnf clean all
+# Install "git" and "make", required by "npm" for installing some dependencies.
+RUN dnf -y install git make && dnf clean all
 
 ENV NODE_VERSION 5.0.0
 
