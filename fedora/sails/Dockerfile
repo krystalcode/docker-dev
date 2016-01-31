@@ -1,7 +1,8 @@
 FROM krystalcode/f_nvm
 
-# Install "git" and "make", required by "npm" for installing some dependencies.
-RUN dnf -y install git make && dnf clean all
+# Install "git", "make" and "gcc-c++", required by "npm" for installing some
+# dependencies.
+RUN dnf -y install git make gcc-c++ && dnf clean all
 
 ENV NODE_VERSION 5.0.0
 
