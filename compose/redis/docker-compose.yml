@@ -1,0 +1,15 @@
+redis:
+  image: redis:alpine
+  container_name: example_redis
+  volumes:
+    - ./docker/.volumes/redis:/data
+  command: redis-server --appendonly yes
+
+redis_ui:
+  image: krystalcode/f_redis_commander
+  container_name: example_redis_ui
+  links:
+    - redis
+  environment:
+    - VIRTUAL_HOST=redis.example.localhost
+    - REDIS_HOST=redis

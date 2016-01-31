@@ -1,0 +1,3 @@
+# Ignore Docker volumes that may be created while testing the docker-composer
+# configurations.
+.volumes
