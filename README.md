@@ -34,11 +34,11 @@ Currently available images based on the official fedora image:
 - Kibana Dev (Kibana plugin development). DockerHub: krystalcode/f_kibana_dev.
 - Node Version Manager (for use as a base image). DockerHub: krystalcode/f_nvm.
 - Redis Commander (redis web ui). DockerHub: krystalcode/f_redis_commander.
-- Sails JS. DockerHub: krystalcode/f_sails
+- Sails JS. DockerHub: krystalcode/f_sails.
 
 ## Environments
 Example environments are provided as docker-compose configuration files and can be found in the 'compose' folder. When using an environment, make sure you adapt it to your projects requirements first.
 
 Currently available environments:
 
-- Redis (with web ui)
+- Redis (with web ui).
