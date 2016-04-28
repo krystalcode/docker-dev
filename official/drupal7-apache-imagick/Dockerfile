@@ -1,12 +1,12 @@
 FROM php:5.6-apache
 
-RUN # Install OS packages required.
+    # Install OS packages required.
     # Required by php extensions: libcurl4-gnutls-dev imagemagick libmagickwand-dev
     # Required by Drupal/Drush for communicating with the database: mysql-client
     # Required for installing 'mycli': python-pip python-dev
     # Required for text editing: vim
     # Required for better shell experience: powerline fonts-powerline
-    apt-get update && \
+RUN apt-get update && \
     apt-get -y install libpng-dev libcurl4-gnutls-dev mysql-client python-pip python-dev vim powerline fonts-powerline && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
