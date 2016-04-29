@@ -7,7 +7,7 @@ FROM php:5.6-apache
     # Required for text editing: vim
     # Required for better shell experience: powerline fonts-powerline
 RUN apt-get update && \
-    apt-get -y install libpng-dev libcurl4-gnutls-dev mysql-client python-pip python-dev vim powerline fonts-powerline && \
+    apt-get -y install libcurl4-gnutls-dev imagemagick libmagickwand-dev mysql-client python-pip python-dev vim powerline fonts-powerline && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 
