@@ -15,8 +15,10 @@ RUN apt-get update && \
     docker-php-ext-install mysql pdo_mysql mbstring curl && \
     printf "\n" | pecl install imagick && \
 
-    # Enable 'mod_rewrite' apache module.
-    a2enmod rewrite && \
+    # Enable 'mod_expires' and 'mod_headers' apache modules required by the
+    # 'advagg' module for properly setting headers.
+    # Enable 'mod_rewrite' apache module for URL rewriting.
+    a2enmod expires headers rewrite && \
 
     # Install Drush.
     curl -o /usr/local/bin/drush http://files.drush.org/drush.phar && \
