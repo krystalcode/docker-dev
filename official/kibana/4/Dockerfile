@@ -1,4 +1,4 @@
-FROM kibana:2
+FROM kibana:4
 
 # Install Marvel plugin.
 RUN gosu kibana /opt/kibana/bin/kibana plugin --install elasticsearch/marvel/latest
