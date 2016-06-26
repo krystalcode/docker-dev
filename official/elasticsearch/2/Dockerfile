@@ -1,4 +1,4 @@
-FROM elasticsearch
+FROM elasticsearch:2
 
 # Install Marvel agent.
 RUN /usr/share/elasticsearch/bin/plugin install license && \
