@@ -1,4 +1,10 @@
 FROM kibana:5
 
-# Install X-Pack.
-RUN gosu kibana /opt/kibana/bin/kibana-plugin install x-pack
+    # Install OS packages required.
+    # Required by Reporting plugin: bzip2
+RUN apt-get update && \
+    apt-get -y install bzip2 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    # Install X-Pack.
+    gosu kibana /opt/kibana/bin/kibana-plugin install x-pack
