@@ -37,3 +37,17 @@ RUN apt-get update && \
     # Export the TERM environment variable.
     # Configure bash shell to use "powerline" by default.
     printf '\n%s\n%s\n\n\n%s\n%s\n%s\n%s\n%s\n\n' '# Export TERM environment variable' 'export TERM=xterm' '# Use powerline' 'powerline-daemon -q' 'POWERLINE_BASH_CONTINUATION=1' 'POWERLINE_BASH_SELECT=1' '. /usr/share/powerline/bindings/bash/powerline.sh'  >> ~/.bashrc
+
+# Add apache configuration file.
+# The only change compared to the default file is that it changes the document
+# root to be the /var/www/html/web folder as required by Drupal. We don't use a
+# virtual host 1) because it is causing the container not to start, and 2) it is
+# not needed since this is the only site served by this web server.
+#
+# @Issue(
+#   "Include all .htaccess files when the server is starting"
+#   type="improvement"
+#   priority="normal"
+#   labels="performance"
+# )
+COPY apache2.conf /etc/apache2/apache2.conf
