@@ -1,13 +1,13 @@
 FROM php:7-apache
 
     # Install OS packages required.
-    # Required by php extensions: libcurl4-gnutls-dev
+    # Required by php extensions: libcurl4-gnutls-dev libjpeg-dev
     # Required by Drupal/Drush for communicating with the database: mysql-client
     # Required for installing 'mycli': python-pip python-dev
     # Required for text editing: vim
     # Required for better shell experience: powerline fonts-powerline
 RUN apt-get update && \
-    apt-get -y install libcurl4-gnutls-dev mysql-client python-pip python-dev vim powerline fonts-powerline && \
+    apt-get -y install libcurl4-gnutls-dev libjpeg-dev mysql-client python-pip python-dev vim powerline fonts-powerline && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 
