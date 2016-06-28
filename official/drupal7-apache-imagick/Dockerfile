@@ -12,8 +12,11 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 
     # Install php extensions required by Drupal.
+    # We're installing the 'jsmin' php extension for faster javascript
+    # minification if we're the 'advagg' module.
     docker-php-ext-install mysql pdo_mysql mbstring curl && \
-    printf "\n" | pecl install imagick && \
+    printf "\n" | pecl install imagick jsmin && \
+    docker-php-ext-enable imagick jsmin && \
 
     # Enable 'mod_expires' and 'mod_headers' apache modules required by the
     # 'advagg' module for properly setting headers.
