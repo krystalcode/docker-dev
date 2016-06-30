@@ -1,7 +1,7 @@
 FROM krystalcode/f_nvm
 
 # Set the node version to the latest available.
-ENV NODE_VERSION node
+ENV NODE_VERSION 6
 
     # Install the right Node version and set it as default.
 RUN . ${HOME}/.nvm/nvm.sh && \
