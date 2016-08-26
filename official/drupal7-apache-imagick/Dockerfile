@@ -14,10 +14,13 @@ RUN apt-get update && \
 
     # Install php extensions required by Drupal.
     # We're installing the 'jsmin' php extension for faster javascript
-    # minification if we're the 'advagg' module.
+    # minification if we're using the 'advagg' module.
+    # Install the PhpRedis extension required by the 'redis' module used for
+    # improving cache performance.
     docker-php-ext-install mysql pdo_mysql mbstring curl && \
-    printf "\n" | pecl install imagick jsmin && \
-    docker-php-ext-enable imagick jsmin && \
+    printf "\n" | pecl install imagick jsmin redis-2.2.8 && \
+    docker-php-ext-enable imagick jsmin redis && \
+    rm /tmp/pear -rf && \
 
     # Enable 'mod_expires' and 'mod_headers' apache modules required by the
     # 'advagg' module for properly setting headers.
