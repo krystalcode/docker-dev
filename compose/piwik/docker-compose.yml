@@ -1,0 +1,49 @@
+piwik:
+  # Source.
+  image: piwik
+
+  # Build.
+  container_name: piwik_piwik
+
+  # Run.
+  links:
+    - mysql
+
+nginx:
+  # Source.
+  image: nginx
+
+  # Build.
+  container_name: piwik_nginx
+
+  # Run.
+  environment:
+    - VIRTUAL_HOST=piwik.localhost
+    - LETSENCRYPT_HOST=piwik.localhost
+    - LETSENCRYPT_EMAIL=webmaster@localhost
+
+  links:
+    - piwik
+
+  volumes:
+    - ./nginx.conf:/etc/nginx/nginx.conf:ro
+
+  volumes_from:
+    - piwik:ro
+
+mysql:
+  # Source.
+  image: mariadb
+
+  # Build.
+  container_name: piwik_mysql
+
+  # Run.
+  environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    - MYSQL_USER=application
+    - MYSQL_PASSWORD=application
+    - MYSQL_DATABASE=application
+
+  volumes:
+    - ${DOCKER_COMPOSE_VOLUMES_DIR}/docker-dev/piwik/mysql:/var/lib/mysql
