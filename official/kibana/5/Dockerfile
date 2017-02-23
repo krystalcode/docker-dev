@@ -7,4 +7,4 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     # Install X-Pack.
-    gosu kibana /opt/kibana/bin/kibana-plugin install x-pack
+    gosu kibana /usr/share/kibana/bin/kibana-plugin install x-pack
