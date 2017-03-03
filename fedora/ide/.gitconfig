@@ -36,3 +36,9 @@
 
 [push]
   default = upstream
+
+[url "https://github.com/"]
+    insteadOf = gh:
+
+[url "https://bitbucket.org/"]
+    insteadOf = bb:
