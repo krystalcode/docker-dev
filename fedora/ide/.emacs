@@ -55,6 +55,9 @@
    (package-install p)))
 )
 
+;; Configure Magit.
+(global-set-key (kbd "C-c g") 'magit-status)
+
 ;; Configure CEDET and Semantic.
 (global-ede-mode 1)
 (semantic-mode 1)
@@ -144,6 +147,7 @@
 (require 'helm-config)
 (helm-mode 1)
 (helm-autoresize-mode 1)
+(global-set-key (kbd "M-x") 'helm-M-x)
 
 ;; Configure projectile and helm-projectile.
 (projectile-global-mode)
