@@ -2,7 +2,7 @@ FROM krystalcode/f_fedora
 
 # Install packages.
 # ruby, ruby-devel, gcc, make, redhat-rpm-config: required for installing ruby gems.
-RUN dnf -y install emacs the_silver_searcher w3m git patch php-cli ruby ruby-devel gcc make redhat-rpm-config && \
+RUN dnf -y install emacs the_silver_searcher w3m git patch php-cli ruby ruby-devel gcc make redhat-rpm-config nmap && \
     dnf clean all
 
 # Install "composer".
