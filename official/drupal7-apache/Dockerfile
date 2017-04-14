@@ -18,8 +18,8 @@ RUN apt-get clean && \
 # Install php extensions required by Drupal.
 RUN docker-php-ext-install mysql pdo_mysql mbstring gd curl
 
-# Upgrade 'pip' and install 'mycli'.
-RUN pip install --upgrade pip && pip install mycli
+# Upgrade 'pip' and 'pymysql', and install 'mycli'.
+RUN pip install --upgrade pip && pip install -U pymysql && pip install mycli
 
 # Install Drush.
 RUN curl -o /usr/local/bin/drush http://files.drush.org/drush.phar && \
