@@ -10,8 +10,7 @@ RUN cd /usr/local && \
     # Update environment variables for defining the Go workspace directory, and
     # for including to the PATH the Go executable and any builds we make in the
     # workspace.
-    printf '\n%s\n%s\n\n' '# Register the Go root path.' "export PATH=$PATH:/usr/local/go/bin" >> ~/.bashrc && \
-    printf '\n%s\n%s\n\n' '# Register the Go workspace bin path.' "export PATH=$PATH:/go/bin" >> ~/.bashrc && \
+    printf '\n%s\n%s\n\n' '# Register the Go root path.' "export PATH=$PATH:/usr/local/go/bin:/go/bin" >> ~/.bashrc && \
     printf '\n%s\n%s\n\n' '# Register the Go workspace source path.' "export GOPATH=/go" >> ~/.bashrc && \
     # Install Git, commonly required for fetching Go packages.
     dnf -y install git && \
