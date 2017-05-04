@@ -1,6 +1,6 @@
 FROM krystalcode/f_fedora
 
-ENV NVM_VERSION 0.33.1
+ENV NVM_VERSION 0.33.2
 
     # Install OS packages required.
     # Install "git", "make" and "gcc-c++", required by "npm" for installing some
