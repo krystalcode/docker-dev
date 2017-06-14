@@ -17,6 +17,7 @@
   haskell-mode
   web-mode
   yaml-mode
+  go-mode
   ; Version control.
   magit
   ; Productivity helpers.
@@ -111,6 +112,13 @@
 
 ;; Configure haskell-mode.
 (add-hook 'haskell-mode-hook 'haskell-indentation-mode)
+
+;; Configure go-mode.
+(add-hook 'go-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'gofmt-before-save)
+            (setq tab-width 2)
+            (setq indent-tabs-mode 0)))
 
 ;; Javascript indentation.
 (setq js-indent-level 2)
