@@ -4,14 +4,15 @@
 A collection of Docker images and environments. Its purpose is to facilitate easily setting up development environments.
 
 ## Images
-Two types of images are currently available:
+Three types of images are currently available:
 
 - official: based on the official image of the OS or software they provide (usually debian).
 - fedora: based on the official fedora image, with some additional useful tools included.
+- alpine: based on the official alpine image.
 
 All images are available in DockerHub as well. The DockerHub ID prefix is always 'krystalcode'. The image's name is composed of two parts, separated by an underscore:
 
-- OS type, e.g. 'o' for official-based images and 'f' for fedora-based images.
+- OS type, e.g. 'o' for official-based images, 'f' for fedora-based images and 'a' for alpine-based images.
 - Service name, which is the folder's name with hyphens converted to underscores.
 
 For example, the official-based elasticsearch image is located in the 'official/elasticsearch' folder, and its corresponding DockerHub image is 'krystalcode/o_elasticsearch'.
