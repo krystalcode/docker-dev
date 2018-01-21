@@ -14,7 +14,7 @@ RUN apt-get update && \
 
     # Install php extensions required by Drupal.
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
-    docker-php-ext-install -j$(nproc) mysqli pdo_mysql mbstring gd curl opcache && \
+    docker-php-ext-install -j$(nproc) mysqli pdo_mysql mbstring gd curl opcache bcmath && \
 
     # Enable 'mod_expires' and 'mod_headers' apache modules required by the
     # 'advagg' module for properly setting headers.
