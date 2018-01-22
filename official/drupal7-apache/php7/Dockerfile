@@ -19,10 +19,9 @@ RUN apt-get update && \
     # Install php extensions required by Drupal.
     # Install the PhpRedis extension required by the 'redis' module used for
     # improving cache performance.
-    # Install the Xhprof extension used for debugging.
     docker-php-ext-install mysqli pdo_mysql mbstring gd curl && \
-    printf "\n" | pecl install redis xhprof && \
-    docker-php-ext-enable redis xhprof && \
+    printf "\n" | pecl install redis && \
+    docker-php-ext-enable redis && \
     rm /tmp/pear -rf && \
 
     # Enable 'mod_expires' and 'mod_headers' apache modules required by the
