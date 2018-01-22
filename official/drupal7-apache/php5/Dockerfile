@@ -31,7 +31,7 @@ RUN apt-get update && \
     a2enmod expires headers rewrite && \
 
     # Upgrade 'pip' and 'pymysql', and install 'mycli'.
-    pip install --upgrade pip && pip install -U pymysql && pip install mycli && \
+    pip install --upgrade pip && pip install --upgrade setuptools && pip install -U pymysql && pip install mycli && \
 
     # Install Drush.
     curl -o /usr/local/bin/drush http://files.drush.org/drush.phar && \
