@@ -5,11 +5,12 @@ FROM php:7-apache
     # Required by Drupal/Drush for communicating with the database: mysql-client
     # Required by Drupal for running cron jobs: cron
     # Required by composer for installing some packages: unzip
+    # Required by development use: git
     # Required for installing 'mycli': python-pip python-dev
     # Required for text editing: vim
     # Required for better shell experience: powerline fonts-powerline
 RUN apt-get update && \
-    apt-get -y install libcurl4-gnutls-dev imagemagick libmagickwand-dev mysql-client cron unzip python-pip python-dev vim powerline fonts-powerline && \
+    apt-get -y install libcurl4-gnutls-dev imagemagick libmagickwand-dev mysql-client cron unzip git python-pip python-dev vim powerline fonts-powerline && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 
