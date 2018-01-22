@@ -1,34 +1,46 @@
 FROM php:5.6-apache
 
-# Update.
-RUN apt-get update
+    # Install OS packages required.
+    # Required by php extensions: libpng-dev libcurl4-gnutls-dev
+    # Required by Drupal/Drush for communicating with the database: mysql-client
+    # Required by Drupal for running cron jobs: cron
+    # Required by composer for installing some packages: unzip
+    # Required by development use: git
+    # Required for installing 'mycli': python-pip python-dev
+    # Required for text editing: vim
+    # Required for better shell experience: powerline fonts-powerline
+RUN apt-get update && \
+    apt-get -y install libpng-dev libcurl4-gnutls-dev mysql-client cron unzip git python-pip python-dev vim powerline fonts-powerline && \
 
-# Install packages required.
-# Required by php extensions: libpng-dev libcurl4-gnutls-dev
-# Required by Drupal/Drush for communicating with the database: mysql-client
-# Required for installing 'mycli': python-pip python-dev
-# Required for text editing: vim
-# Required for better shell experience: powerline fonts-powerline
-RUN apt-get -y install libpng-dev libcurl4-gnutls-dev mysql-client python-pip python-dev vim powerline fonts-powerline
+    # Clean up.
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 
-# Clean up.
-RUN apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    # Install php extensions required by Drupal.
+    # Install the PhpRedis extension required by the 'redis' module used for
+    # improving cache performance.
+    # Install the Xhprof extension used for debugging.
+    docker-php-ext-install mysqli pdo_mysql mbstring gd curl && \
+    printf "\n" | pecl install redis xhprof && \
+    docker-php-ext-enable redis xhprof && \
+    rm /tmp/pear -rf && \
 
-# Install php extensions required by Drupal.
-RUN docker-php-ext-install mysql pdo_mysql mbstring gd curl
+    # Enable 'mod_expires' and 'mod_headers' apache modules required by the
+    # 'advagg' module for properly setting headers.
+    # Enable 'mod_rewrite' apache module for URL rewriting.
+    a2enmod expires headers rewrite && \
 
-# Upgrade 'pip' and 'pymysql', and install 'mycli'.
-RUN pip install --upgrade pip && pip install -U pymysql && pip install mycli
+    # Upgrade 'pip' and 'pymysql', and install 'mycli'.
+    pip install --upgrade pip && pip install -U pymysql && pip install mycli && \
 
-# Install Drush.
-RUN curl -o /usr/local/bin/drush http://files.drush.org/drush.phar && \
+    # Install Drush.
+    curl -o /usr/local/bin/drush http://files.drush.org/drush.phar && \
     chmod +x /usr/local/bin/drush && \
-    drush -y init
+    drush -y init && \
 
-# Install 'composer'.
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+    # Install 'composer'.
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer && \
 
-# Export the TERM environment variable.
-# Configure bash shell to use "powerline" by default.
-RUN printf '\n%s\n%s\n\n\n%s\n%s\n%s\n%s\n%s\n\n' '# Export TERM environment variable' 'export TERM=xterm' '# Use powerline' 'powerline-daemon -q' 'POWERLINE_BASH_CONTINUATION=1' 'POWERLINE_BASH_SELECT=1' '. /usr/share/powerline/bindings/bash/powerline.sh'  >> ~/.bashrc
+    # Export the TERM environment variable.
+    # Configure bash shell to use "powerline" by default.
+    printf '\n%s\n%s\n\n\n%s\n%s\n%s\n%s\n%s\n\n' '# Export TERM environment variable' 'export TERM=xterm' '# Use powerline' 'powerline-daemon -q' 'POWERLINE_BASH_CONTINUATION=1' 'POWERLINE_BASH_SELECT=1' '. /usr/share/powerline/bindings/bash/powerline.sh'  >> ~/.bashrc
