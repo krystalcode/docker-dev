@@ -40,7 +40,7 @@ RUN apt-get update && \
     groupadd -r application && useradd -r -g application application && \
 
     # Upgrade 'pip' and 'pymysql', and install 'mycli'.
-    pip install --upgrade pip && pip install -U pymysql && pip install mycli && \
+    pip install --upgrade pip && pip install --upgrade setuptools && pip install -U pymysql && pip install mycli && \
 
     # Export the TERM environment variable.
     # Configure bash shell to use "powerline" by default.
