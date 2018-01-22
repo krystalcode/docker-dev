@@ -20,8 +20,8 @@ RUN apt-get update && \
     # Install the PhpRedis extension required by the 'redis' module used for
     # improving cache performance.
     docker-php-ext-install mysqli pdo_mysql mbstring curl && \
-    printf "\n" | pecl install imagick jsmin redis-2.2.8 xhprof && \
-    docker-php-ext-enable imagick jsmin redis xhprof && \
+    printf "\n" | pecl install imagick jsmin redis-2.2.8 && \
+    docker-php-ext-enable imagick jsmin redis && \
     rm /tmp/pear -rf && \
 
     # Enable 'mod_expires' and 'mod_headers' apache modules required by the
