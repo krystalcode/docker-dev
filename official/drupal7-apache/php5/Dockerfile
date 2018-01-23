@@ -29,9 +29,6 @@ RUN apt-get update && \
     # Enable 'mod_rewrite' apache module for URL rewriting.
     a2enmod expires headers rewrite && \
 
-    # Upgrade 'pip' and 'pymysql', and install 'mycli'.
-    pip install --upgrade pip && pip install --upgrade setuptools && pip install -U pymysql && pip install mycli && \
-
     # Install Drush.
     curl -o /usr/local/bin/drush http://files.drush.org/drush.phar && \
     chmod +x /usr/local/bin/drush && \
