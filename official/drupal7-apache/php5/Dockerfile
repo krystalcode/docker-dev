@@ -37,6 +37,9 @@ RUN apt-get update && \
     # Install 'composer'.
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer && \
 
+    # Create a user that should own the application files.
+    groupadd -r application && useradd -r -g application application && \
+
     # Export the TERM environment variable.
     # Configure bash shell to use "powerline" by default.
     printf '\n%s\n%s\n\n\n%s\n%s\n%s\n%s\n%s\n\n' '# Export TERM environment variable' 'export TERM=xterm' '# Use powerline' 'powerline-daemon -q' 'POWERLINE_BASH_CONTINUATION=1' 'POWERLINE_BASH_SELECT=1' '. /usr/share/powerline/bindings/bash/powerline.sh'  >> ~/.bashrc
