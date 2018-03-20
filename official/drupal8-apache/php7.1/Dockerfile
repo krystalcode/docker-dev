@@ -4,11 +4,10 @@ FROM php:7.1-apache
     # Required by php extensions: libcurl4-gnutls-dev libjpeg-dev libpng-dev libfreetype6-dev
     # Required by composer for installing certain packages: git unzip
     # Required by Drupal/Drush for communicating with the database: mysql-client
-    # Required for installing 'mycli': python-pip python-dev
     # Required for text editing: vim
     # Required for better shell experience: powerline fonts-powerline
 RUN apt-get update && \
-    apt-get -y install libcurl4-gnutls-dev libjpeg-dev libpng-dev libfreetype6-dev git unzip mysql-client python-pip python-dev vim powerline fonts-powerline && \
+    apt-get -y install libcurl4-gnutls-dev libjpeg-dev libpng-dev libfreetype6-dev git unzip mysql-client vim powerline fonts-powerline && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 
@@ -30,9 +29,6 @@ RUN apt-get update && \
 
     # Create a user that should own the application files.
     groupadd -r application && useradd -r -g application application && \
-
-    # Upgrade 'pip' and 'pymysql', and install 'mycli'.
-    pip install --upgrade pip && pip install -U pymysql && pip install mycli && \
 
     # Export the TERM environment variable.
     # Configure bash shell to use "powerline" by default.
