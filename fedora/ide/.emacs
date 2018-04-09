@@ -84,6 +84,9 @@
  ;; Use spaces instead of tabs.
  '(indent-tabs-mode nil))
 
+;; Key for reverting buffers.
+(define-key global-map (kbd "C-x r") 'revert-buffer)
+
 ;; Require column-marker.
 (require 'column-marker)
 
