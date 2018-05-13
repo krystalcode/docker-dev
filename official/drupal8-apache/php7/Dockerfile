@@ -25,6 +25,10 @@ RUN apt-get update && \
     curl -L -o /usr/local/bin/drush https://github.com/drush-ops/drush-launcher/releases/download/0.5.1/drush.phar && \
     chmod +x /usr/local/bin/drush && \
 
+    # Install 'drupal-console-launcher'.
+    curl -L -o /usr/local/bin/drupal https://drupalconsole.com/installer drupal.phar && \
+    chmod +x /usr/local/bin/drupal && \
+
     # Install 'composer'.
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer && \
 
