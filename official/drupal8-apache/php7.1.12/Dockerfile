@@ -25,7 +25,7 @@ RUN apt-get update && \
     chmod +x /usr/local/bin/drush && \
 
     # Install 'drupal-console-launcher'.
-    curl -L -o /usr/local/bin/drupal https://drupalconsole.com/installer drupal.phar && \
+    curl -L -o /usr/local/bin/drupal https://drupalconsole.com/installer && \
     chmod +x /usr/local/bin/drupal && \
 
     # Install 'composer'.
