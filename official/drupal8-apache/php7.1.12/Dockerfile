@@ -40,9 +40,7 @@ RUN apt-get update && \
 
 # Add apache configuration file.
 # The only change compared to the default file is that it changes the document
-# root to be the /var/www/html/web folder as required by Drupal. We don't use a
-# virtual host 1) because it is causing the container not to start, and 2) it is
-# not needed since this is the only site served by this web server.
+# root to be the /var/www/html/web folder as required by Drupal.
 #
 # @Issue(
 #   "Include all .htaccess files when the server is starting"
@@ -50,4 +48,4 @@ RUN apt-get update && \
 #   priority="normal"
 #   labels="performance"
 # )
-COPY apache2.conf /etc/apache2/apache2.conf
+COPY apache2.conf /etc/apache2/sites-available/000-default.conf
