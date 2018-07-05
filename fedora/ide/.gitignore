@@ -4,5 +4,8 @@ tmp
 .*#
 \#*#
 
-# Ignore "ag" files.
+# Ignore `ag` files.
 .agignore
+
+# Ignore `composer.phar` files.
+composer.phar
