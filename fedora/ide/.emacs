@@ -56,6 +56,17 @@
    (package-install p)))
 )
 
+;; Function for reverting buffer without confirmation prompt.
+(defun revert-buffer-no-confirm ()
+  "Revert buffer without confirmation."
+  (interactive)
+  (revert-buffer :ignore-auto :noconfirm))
+
+(global-set-key (kbd "C-c r") 'revert-buffer-no-confirm)
+
+;; Auto-refresh dired views when files change.
+(add-hook 'dired-mode-hook 'auto-revert-mode)
+
 ;; Configure Magit.
 (global-set-key (kbd "C-c g") 'magit-status)
 
@@ -83,9 +94,6 @@
  '(column-number-mode 1)
  ;; Use spaces instead of tabs.
  '(indent-tabs-mode nil))
-
-;; Key for reverting buffers.
-(define-key global-map (kbd "C-x r") 'revert-buffer)
 
 ;; Require column-marker.
 (require 'column-marker)
