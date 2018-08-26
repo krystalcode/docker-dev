@@ -31,6 +31,9 @@ RUN apt-get update && \
     # minification.
     printf "\n" | pecl install jsmin && \
     docker-php-ext-enable jsmin && \
+    # Install the `xdebug` extension used for development/debugging purposes.
+    printf "\n" | pecl install xdebug && \
+    docker-php-ext-enable xdebug && \
 
     rm /tmp/pear -rf && \
 
