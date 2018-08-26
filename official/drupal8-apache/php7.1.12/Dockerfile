@@ -27,6 +27,11 @@ RUN apt-get update && \
     # improved cache performance.
     printf "\n" | pecl install redis && \
     docker-php-ext-enable redis && \
+    # Install the JSMin extension used by the 'advagg' module for faster js
+    # minification.
+    printf "\n" | pecl install jsmin && \
+    docker-php-ext-enable jsmin && \
+
     rm /tmp/pear -rf && \
 
     # Enable 'mod_expires' and 'mod_headers' apache modules required by the
