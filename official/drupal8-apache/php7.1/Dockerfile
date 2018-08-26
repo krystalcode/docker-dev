@@ -15,7 +15,8 @@ RUN apt-get update && \
     libjpeg-dev \
     libpng-dev \
     libfreetype6-dev \
-    git unzip \
+    git \
+    unzip \
     mysql-client \
     vim \
     powerline \
