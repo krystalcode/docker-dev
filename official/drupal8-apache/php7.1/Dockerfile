@@ -7,7 +7,16 @@ FROM php:7.1-apache
     # Required for text editing: vim
     # Required for better shell experience: powerline fonts-powerline
 RUN apt-get update && \
-    apt-get -y install libcurl4-gnutls-dev libjpeg-dev libpng-dev libfreetype6-dev git unzip mysql-client vim powerline fonts-powerline && \
+    apt-get -y install \
+    libcurl4-gnutls-dev \
+    libjpeg-dev \
+    libpng-dev \
+    libfreetype6-dev \
+    git unzip \
+    mysql-client \
+    vim \
+    powerline \
+    fonts-powerline && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 

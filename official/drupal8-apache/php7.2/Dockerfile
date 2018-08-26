@@ -8,7 +8,19 @@ FROM php:7.2-apache
     # Required for text editing: vim
     # Required for better shell experience: powerline fonts-powerline
 RUN apt-get update && \
-    apt-get -y install libcurl4-gnutls-dev libjpeg-dev libpng-dev libfreetype6-dev git unzip mysql-client python-pip python-dev vim powerline fonts-powerline && \
+    apt-get -y install \
+    libcurl4-gnutls-dev \
+    libjpeg-dev \
+    libpng-dev \
+    libfreetype6-dev \
+    git \
+    unzip \
+    mysql-client \
+    python-pip \
+    python-dev \
+    vim \
+    powerline \
+    fonts-powerline && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 
