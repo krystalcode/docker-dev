@@ -1,7 +1,8 @@
 FROM php:7.2-apache
 
     # Install OS packages required.
-    # Required by php extensions: libcurl4-gnutls-dev libjpeg-dev libpng-dev libfreetype6-dev
+    # Required by php extensions: libcurl4-gnutls-dev imagemagick
+    #   libmagickwand-dev libjpeg-dev libpng-dev libfreetype6-dev
     # Required by composer for installing certain packages: git unzip
     # Required by Drupal/Drush for communicating with the database: mysql-client
     # Required for installing 'mycli': python-pip python-dev
@@ -10,6 +11,8 @@ FROM php:7.2-apache
 RUN apt-get update && \
     apt-get -y install \
     libcurl4-gnutls-dev \
+    imagemagick \
+    libmagickwand-dev \
     libjpeg-dev \
     libpng-dev \
     libfreetype6-dev \
@@ -27,6 +30,11 @@ RUN apt-get update && \
     # Install php extensions required by Drupal.
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-install -j$(nproc) mysqli pdo_mysql mbstring gd curl opcache bcmath && \
+
+    # Install the Imagick extension used by the 'imagick' module as the image
+    # toolkit.
+    printf "\n" | pecl install imagick && \
+    docker-php-ext-enable imagick && \
 
     # Enable 'mod_expires' and 'mod_headers' apache modules required by the
     # 'advagg' module for properly setting headers.
