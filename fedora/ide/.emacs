@@ -152,7 +152,7 @@
 (payas/ac-setup)
 (define-key php-mode-map (kbd "C-c C-y") 'yas/create-php-snippet)
 
-; Configure flycheck
+; Configure flycheck.
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
 ; Change default browser for 'browse-url' to w3m.
