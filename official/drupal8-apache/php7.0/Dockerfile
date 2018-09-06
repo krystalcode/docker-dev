@@ -68,4 +68,4 @@ RUN apt-get update && \
 #   priority="normal"
 #   labels="performance"
 # )
-COPY apache2.conf /etc/apache2/apache2.conf
+COPY apache2.conf /etc/apache2/sites-available/000-default.conf
