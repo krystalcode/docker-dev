@@ -9,3 +9,7 @@ tmp
 
 # Ignore `composer.phar` files.
 composer.phar
+
+# Ignore local docker start/stop scripts.
+/docker-start.sh
+/docker-stop.sh
