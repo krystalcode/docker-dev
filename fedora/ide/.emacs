@@ -32,6 +32,8 @@
   helm-projectile
   ; Improved readability.
   column-marker
+  powerline
+  eshell-git-prompt
   ; Browser.
   w3m
  ) "The list of packages that should be installed on startup.")
@@ -161,6 +163,13 @@
 ; Configure autopair.
 (require 'autopair)
 (autopair-global-mode)
+
+; Configure powerline.
+(require 'powerline)
+(powerline-default-theme)
+
+; Configure eshell-git-prompt
+(eshell-git-prompt-use-theme 'robbyrussell)
 
 ; Configure helm.
 (require 'helm-config)
