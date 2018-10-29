@@ -12,13 +12,15 @@ RUN apt-get update && \
     libcurl4-gnutls-dev \
     imagemagick \
     libmagickwand-dev \
-    libjpeg-dev libpng-dev \
+    libjpeg-dev \
+    libpng-dev \
     libfreetype6-dev \
     git \
     unzip \
     mysql-client \
     vim \
-    powerline fonts-powerline && \
+    powerline \
+    fonts-powerline && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 
