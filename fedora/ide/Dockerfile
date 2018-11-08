@@ -5,9 +5,6 @@ FROM krystalcode/f_fedora
 RUN dnf -y install emacs the_silver_searcher w3m git patch patchutils php-cli ruby ruby-devel gcc make redhat-rpm-config nmap && \
     dnf clean all
 
-# Install "composer".
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
-
 # Install "compass".
 RUN gem install compass bootstrap-sass
 
