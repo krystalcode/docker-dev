@@ -5,6 +5,7 @@ FROM krystalcode/f_fedora
 RUN dnf -y install \
     emacs \
     the_silver_searcher \
+    rsync \
     w3m \
     patch \
     patchutils \
