@@ -34,6 +34,7 @@
   column-marker
   powerline
   eshell-git-prompt
+  sunburn-theme
   ; Browser.
   w3m
  ) "The list of packages that should be installed on startup.")
@@ -57,6 +58,9 @@
   (when (not (package-installed-p p))
    (package-install p)))
 )
+
+;; Set emacs theme.
+(load-theme 'sunburn t)
 
 ;; Function for reverting buffer without confirmation prompt.
 (defun revert-buffer-no-confirm ()
