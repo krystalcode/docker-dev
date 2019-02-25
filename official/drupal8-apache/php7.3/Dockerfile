@@ -1,4 +1,4 @@
-FROM php:7.3-rc-apache
+FROM php:7.3-apache
 
     # Install OS packages required.
     # Required by php extensions: libcurl4-gnutls-dev imagemagick
