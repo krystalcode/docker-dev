@@ -43,6 +43,16 @@ RUN apt-get update && \
     # Install the `xdebug` extension used for development/debugging purposes.
     printf "\n" | pecl install xdebug && \
     docker-php-ext-enable xdebug && \
+    # Install the `brotli` extension used by the `advagg` module for CSS/JS
+    # compression.
+    git clone --recursive --depth=1 https://github.com/kjdev/php-ext-brotli.git && \
+    cd php-ext-brotli && \
+    phpize && \
+    ./configure && \
+    make && \
+    make install && \
+    printf '%s\n' 'extension=brotli.so'  >> /usr/local/etc/php/conf.d/brotli.ini && \
+    rm -rf php-ext-brotli && \
 
     rm /tmp/pear -rf && \
 
