@@ -19,6 +19,7 @@
   web-mode
   yaml-mode
   go-mode
+  typescript-mode
   ; Version control.
   magit
   ; Productivity helpers.
