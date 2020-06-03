@@ -186,11 +186,26 @@
 (helm-mode 1)
 (helm-autoresize-mode 1)
 (global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-x b") 'helm-mini)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-c h o") 'helm-occur)
+(define-key helm-map (kbd "C-z")  'helm-execute-persistent-action) ; list actions using C-z
+(setq helm-M-x-fuzzy-match                  t ; optional fuzzy matching for helm-M-x
+      helm-buffers-fuzzy-matching           t ; funny matching for helm-mini current buffers
+      helm-recentf-fuzzy-match              t ;funny matching for helm-mini recent buffers
+      helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+      helm-ff-file-name-history-use-recentf t
+      helm-echo-input-in-header-line t)
 
 ;; Configure projectile and helm-projectile.
 (projectile-global-mode)
 (setq projectile-enable-caching t)
 (setq projectile-completion-system 'helm)
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 (helm-projectile-on)
 
 ; Doc block functions.
