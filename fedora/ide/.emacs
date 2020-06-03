@@ -14,6 +14,7 @@
   drupal-mode
   scss-mode
   dockerfile-mode
+  elm-mode
   haskell-mode
   web-mode
   yaml-mode
@@ -129,6 +130,9 @@
 
 ;; Configure haskell-mode.
 (add-hook 'haskell-mode-hook 'haskell-indentation-mode)
+
+;; Require elm-mode
+(require 'elm-mode)
 
 ;; Configure go-mode.
 (add-hook 'go-mode-hook
