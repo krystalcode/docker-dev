@@ -1,4 +1,6 @@
-;; .emacs
+;;; .emacs --- Initialization file for Emacs
+;;; Commentary: Emacs Startup File --- initialization for Emacs
+;;; Code:
 
 ;; Load package repositories.
 (require 'package)
