@@ -33,7 +33,7 @@
   helm-ag
   helm-projectile
   ; Improved readability.
-  column-marker
+  column-enforce-mode
   powerline
   eshell-git-prompt
   sunburn-theme
@@ -103,16 +103,15 @@
  ;; Use spaces instead of tabs.
  '(indent-tabs-mode nil))
 
-;; Require column-marker.
-(require 'column-marker)
+;; Require column-enforce-mode.
+(require 'column-enforce-mode)
+(global-column-enforce-mode t)
 
 ;; Configure php-mode.
 (require 'php-mode)
-(add-hook 'php-mode-hook (lambda () (interactive) (column-marker-1 80)))
 
 ;; Configure drupal-mode.
 (require 'drupal-mode)
-(add-hook 'drupal-mode-hook (lambda () (interactive) (column-marker-1 80)))
 (add-to-list 'auto-mode-alist '("\\.\\(module\\|test\\|install\\|theme\\)$" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.\\(php\\|inc\\)$" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.info" . conf-windows-mode))
