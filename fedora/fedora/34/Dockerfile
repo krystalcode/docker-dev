@@ -1,4 +1,6 @@
-FROM fedora
+ARG FEDORA_VERSION=34
+
+FROM fedora:${FEDORA_VERSION}
 
     # Upgrade packages.
 RUN dnf -y upgrade && \
