@@ -19,6 +19,7 @@ RUN dnf -y install \
     dnf -y clean all && \
 
     # Install "compass".
+    gem update --system && \
     gem install compass && \
 
     # Configure aliases.
