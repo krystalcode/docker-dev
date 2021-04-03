@@ -1,5 +1,7 @@
 FROM krystalcode/f_fedora
 
+ENV RUBYGEMS_UPDATE_VERSION 3.2.15
+
     # Install OS packages.
     # ruby, ruby-devel, gcc, make, redhat-rpm-config: required for installing ruby gems.
 RUN dnf -y install \
@@ -20,6 +22,7 @@ RUN dnf -y install \
 
     # Install "compass".
     gem update --system && \
+    ln -sf /usr/local/share/gems/gems/rubygems-update-${RUBYGEMS_UPDATE_VERSION} /usr/share/gems/gems/rubygems-update-${RUBYGEMS_UPDATE_VERSION} && \
     gem install compass && \
 
     # Configure aliases.
