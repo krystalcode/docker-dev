@@ -21,7 +21,7 @@ RUN dnf -y install \
     dnf -y clean all && \
 
     # Install "compass".
-    mkdir /usr/local/${RUBYGEMS_UPDATE_SUBPATH} && \
+    mkdir -p /usr/local/${RUBYGEMS_UPDATE_SUBPATH} && \
     ln -sf /usr/local/${RUBYGEMS_UPDATE_SUBPATH} /usr/${RUBYGEMS_UPDATE_SUBPATH} && \
     gem update --system && \
     gem install compass && \
