@@ -3,7 +3,7 @@ FROM krystalcode/f_fedora
 ENV RUBYGEMS_UPDATE_SUBPATH share/gems/gems/rubygems-update-3.2.15
 
     # Install OS packages.
-    # ruby, ruby-devel, gcc, make, redhat-rpm-config: required for installing ruby gems.
+    # ruby, ruby-devel, gcc, make, redhat-rpm-config, libffi-devel: required for installing ruby gems.
 RUN dnf -y install \
     emacs \
     the_silver_searcher \
@@ -17,6 +17,7 @@ RUN dnf -y install \
     gcc \
     make \
     redhat-rpm-config \
+    libffi-devel \
     nmap && \
     dnf -y clean all && \
 
