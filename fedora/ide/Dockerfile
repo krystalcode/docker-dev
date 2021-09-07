@@ -1,4 +1,4 @@
-FROM krystalcode/f_fedora
+FROM docker.io/krystalcode/f_fedora:34
 
 ENV RUBYGEMS_UPDATE_SUBPATH share/gems/gems/rubygems-update-3.2.15
 
