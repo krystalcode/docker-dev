@@ -1,9 +1,13 @@
 FROM docker.io/krystalcode/f_fedora:34
 
-ENV RUBYGEMS_UPDATE_SUBPATH share/gems/gems/rubygems-update-3.2.15
+ENV RUBYGEMS_UPDATE_SUBPATH share/gems/gems/rubygems-update-3.3.19
 
     # Install OS packages.
-    # ruby, ruby-devel, gcc, make, redhat-rpm-config, libffi-devel: required for installing ruby gems.
+    # ruby, ruby-devel, gcc, make, redhat-rpm-config, libffi-devel: required for
+    #   installing ruby gems.
+    # glibc-locale-source glibc-langpack-en: required for resolving issues with
+    #   the locale not set when running `compass compile`; otherwise some
+    #   special characters are not accepted.
 RUN dnf -y install \
     emacs \
     the_silver_searcher \
@@ -16,12 +20,17 @@ RUN dnf -y install \
     ruby-devel \
     gcc \
     gcc-c++ \
+    glibc-locale-source \
+    glibc-langpack-en \
     make \
     redhat-rpm-config \
     libffi-devel \
     iputils && \
     nmap && \
     dnf -y clean all && \
+
+    # Set the locale.
+    localedef  --verbose --force -i en_US -f UTF-8 en_US.UTF-8 && \
 
     # Install "compass".
     mkdir -p /usr/local/${RUBYGEMS_UPDATE_SUBPATH} && \
