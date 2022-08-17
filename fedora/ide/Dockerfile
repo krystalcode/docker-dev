@@ -25,7 +25,7 @@ RUN dnf -y install \
     make \
     redhat-rpm-config \
     libffi-devel \
-    iputils && \
+    iputils \
     nmap && \
     dnf -y clean all && \
 
