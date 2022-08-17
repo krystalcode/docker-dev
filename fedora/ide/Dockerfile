@@ -1,6 +1,6 @@
 FROM docker.io/krystalcode/f_fedora:35
 
-ENV RUBYGEMS_UPDATE_SUBPATH share/gems/gems/rubygems-update-3.3.19
+ENV RUBYGEMS_UPDATE_SUBPATH share/gems/gems/rubygems-update-3.3.20
 
     # Install OS packages.
     # ruby, ruby-devel, gcc, make, redhat-rpm-config, libffi-devel: required for
