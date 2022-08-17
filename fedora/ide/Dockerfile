@@ -27,13 +27,13 @@ RUN dnf -y install \
     libffi-devel \
     iputils \
     nmap && \
-    dnf -y clean all && \
+    dnf -y clean all
 
     # Set the locale.
-    localedef  --verbose --force -i en_US -f UTF-8 en_US.UTF-8 && \
+RUN localedef  --verbose --force -i en_US -f UTF-8 en_US.UTF-8; exit 0
 
     # Install "compass".
-    mkdir -p /usr/local/${RUBYGEMS_UPDATE_SUBPATH} && \
+RUN mkdir -p /usr/local/${RUBYGEMS_UPDATE_SUBPATH} && \
     ln -sf /usr/local/${RUBYGEMS_UPDATE_SUBPATH} /usr/${RUBYGEMS_UPDATE_SUBPATH} && \
     gem update --system && \
     gem install compass bootstrap-sass && \
