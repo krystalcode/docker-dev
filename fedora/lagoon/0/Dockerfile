@@ -1,6 +1,6 @@
 ARG FEDORA_VERSION=35
 
-FROM docker.io/krystalcode/${FEDORA_VERSION}
+FROM docker.io/krystalcode/f_${FEDORA_VERSION}
 
 ENV LAGOON_VERSION 0.14.0
 
