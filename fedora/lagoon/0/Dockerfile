@@ -1,4 +1,4 @@
-ARG FEDORA_VERSION=35
+ARG FEDORA_VERSION=36
 
 FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
 
