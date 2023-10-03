@@ -2,8 +2,6 @@ ARG FEDORA_VERSION=38
 
 FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
 
-ENV RUBYGEMS_UPDATE_SUBPATH share/gems/gems/rubygems-update-3.3.20
-
     # Install OS packages.
     # ruby, ruby-devel, gcc, make, redhat-rpm-config, libffi-devel: required for
     #   installing ruby gems.
@@ -32,12 +30,10 @@ RUN dnf -y install \
     dnf -y clean all
 
     # Set the locale.
-RUN localedef  --verbose --force -i en_US -f UTF-8 en_US.UTF-8; exit 0
+RUN localedef  --verbose --force -i en_US -f UTF-8 en_US.UTF-8
 
     # Install "compass".
-RUN mkdir -p /usr/local/${RUBYGEMS_UPDATE_SUBPATH} && \
-    ln -sf /usr/local/${RUBYGEMS_UPDATE_SUBPATH} /usr/${RUBYGEMS_UPDATE_SUBPATH} && \
-    gem update --system && \
+RUN gem update --system && \
     gem install compass bootstrap-sass && \
 
     # Configure aliases.
