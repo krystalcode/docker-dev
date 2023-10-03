@@ -30,7 +30,8 @@ RUN dnf -y install \
     dnf -y clean all
 
     # Set the locale.
-RUN localedef  --verbose --force -i en_US -f UTF-8 en_US.UTF-8
+    # This command exits with status 1, which is interpreted by Docker as an error.
+RUN localedef  --verbose --force -i en_US -f UTF-8 en_US.UTF-8; exit 0
 
     # Install "compass".
 RUN gem update --system && \
