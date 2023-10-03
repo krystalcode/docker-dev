@@ -1,4 +1,6 @@
-FROM docker.io/krystalcode/f_fedora:35
+ARG FEDORA_VERSION=38
+
+FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
 
 ENV RUBYGEMS_UPDATE_SUBPATH share/gems/gems/rubygems-update-3.3.20
 
