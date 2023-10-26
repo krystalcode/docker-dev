@@ -1,7 +1,6 @@
 FROM krystalcode/f_nvm
 
-# Set the Node.js version to the latest available within Node.js version 6.
-ENV NODE_VERSION 6
+ARG NODE_VERSION 18
 
     # Install the right Node.js version and set it as default.
 RUN . ${HOME}/.nvm/nvm.sh && \
