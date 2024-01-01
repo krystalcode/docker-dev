@@ -8,6 +8,6 @@ RUN . ${HOME}/.nvm/nvm.sh && \
     nvm install ${NODE_VERSION} && \
     printf '\n%s\n%s%s\n\n' '# Use default node version.' "nvm use " ${NODE_VERSION}  >> ~/.bashrc && \
 
-    # Globally install 'gulp'.
+    # Globally install 'sass'.
     nvm use ${NODE_VERSION} && \
     npm install -g sass
