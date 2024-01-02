@@ -31,7 +31,7 @@ COPY .bashrc.extend.sh /tmp/.bashrc.extend.sh
 RUN cat /tmp/.bashrc.extend.sh >> ~/.bashrc
 
 # Add .bashrc extensions.
-ADD .bashrc.d ~/.bashrc.d
+COPY .bashrc.d ~/.bashrc.d
 
 # Configure "powerline" theme so that it shows "git" branch info.
-ADD powerline.json /root/.config/powerline/config.json
+COPY powerline.json /root/.config/powerline/config.json
