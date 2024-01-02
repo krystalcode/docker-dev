@@ -21,7 +21,7 @@ RUN dnf -y install \
     dnf -y clean all
 
 # Add .bashrc extensions.
-ADD .bashrc.d ~/.bashrc.d/
+COPY .bashrc.d/ide.aliases.sh /root/.bashrc.d/
 
 # Add "emacs" configuration file.
 ADD ./.emacs /root/
