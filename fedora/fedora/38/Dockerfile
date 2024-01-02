@@ -22,11 +22,13 @@ RUN dnf -y upgrade && \
     # Clean up.
     dnf -y clean all && \
 
-    # Allow extending .bashrc with files.
-    cat .bashrc.extend.sh >> ~/.bashrc && \
-
     # Configure DNF for faster downloads.
     printf 'max_parallel_downloads=12\nfastestmirror=True' >> /etc/dnf/dnf.conf
+
+# Allow extending .bashrc with files.
+# Unless we copy the file first, it is not found.
+COPY .bashrc.extend.sh > /tmp/.bashrc.extend.sh
+RUN cat /tmp/.bashrc.extend.sh >> ~/.bashrc
 
 # Add .bashrc extensions.
 ADD .bashrc.d ~/.bashrc.d
