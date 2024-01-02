@@ -16,26 +16,9 @@ RUN dnf -y install \
     patch \
     patchutils \
     php-cli \
-    ruby \
-    ruby-devel \
-    gcc \
-    gcc-c++ \
-    glibc-locale-source \
-    glibc-langpack-en \
-    make \
-    redhat-rpm-config \
-    libffi-devel \
     iputils \
     nmap && \
     dnf -y clean all
-
-    # Set the locale.
-    # This command exits with status 1, which is interpreted by Docker as an error.
-RUN localedef  --verbose --force -i en_US -f UTF-8 en_US.UTF-8; exit 0
-
-    # Install "compass".
-RUN gem update --system && \
-    gem install compass bootstrap-sass && \
 
     # Configure aliases.
     printf '\n\n%s\n%s\n\n%s\n%s\n\n' '# Add silver searcher alias' 'alias ag="ag --color-path 36 --color-match 32 --color-line-number '"'"'1;30'"'"'"' '# Sync eshell aliases' 'alias | sed -E "s/^alias ([^=]+)='"'"'(.*)'"'"'$/alias \1 \2 \$*/g; s/'"'"'\\\'"'""'"'/'"'"'/g;" >~/.emacs.d/eshell/alias'  >> ~/.bashrc
