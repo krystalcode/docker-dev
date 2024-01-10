@@ -4,8 +4,11 @@ FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
 
 ARG LAGOON_VERSION 0.17.0
 
-RUN curl -L "https://github.com/uselagoon/lagoon-cli/releases/download/v${LAGOON_VERSION}/lagoon-cli-v${LAGOON_VERSION}-linux-amd64" -o /usr/local/bin/lagoon && \
+RUN dnf install rsync && \
+    dnf -y clean all && \
+    curl -L "https://github.com/uselagoon/lagoon-cli/releases/download/v${LAGOON_VERSION}/lagoon-cli-v${LAGOON_VERSION}-linux-amd64" -o /usr/local/bin/lagoon && \
     chmod +x /usr/local/bin/lagoon && \
     printf '\n%s\n%s\n\n' '# Lagoon alias' "alias l='lagoon --config-file /src/.lagoon.yml --ssh-key /root/.ssh/id_ed25519'"  >> ~/.bashrc
 
 COPY ssh-config /root/.ssh/config
+COPY rsync.to.sh /usr/local/bin/rsync.to
