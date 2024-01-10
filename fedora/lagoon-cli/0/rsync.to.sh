@@ -19,7 +19,6 @@ fi
 
 echo "Lagoon SSH Hostname: ${LAGOON_SSH_HOSTNAME}"
 echo "Lagoon Project: ${LAGOON_PROJECT}"
-echo "Lagoon Project: ${LAGOON_PROJECT}"
 echo "Lagoon Environment: ${lagoon_environment}"
 echo "Local Path: ${local_path}"
 echo "Remote Path: ${remote_path}"
