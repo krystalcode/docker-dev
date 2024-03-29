@@ -63,6 +63,9 @@
    (package-install p)))
 )
 
+;; Disable Ctrl+z.
+(global-unset-key (kbd "C-z"))
+
 ;; Set emacs theme.
 (load-theme 'sunburn t)
 
