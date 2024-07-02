@@ -22,6 +22,8 @@
   yaml-mode
   go-mode
   typescript-mode
+  apache-mode
+  robots-txt-mode
   ; Version control.
   magit
   ; Productivity helpers.
