@@ -16,7 +16,6 @@ RUN curl -L https://github.com/haskell/ghcup-hs/releases/download/v${GHCUP_VERSI
     ncurses-compat-libs \
     xz \
     perl && \
-    dnf -y clean all && \
-    ghcup install hls
+    dnf -y clean all
 
 COPY .bashrc.d/variables.sh /root/.bashrc.d/ghcup-variables.sh
