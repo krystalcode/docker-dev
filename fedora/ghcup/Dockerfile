@@ -4,6 +4,8 @@ FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
 
 ARG GHCUP_VERSION 0.1.30.0
 
+COPY .bashrc.d/variables.sh /root/.bashrc.d/ghcup-variables.sh
+
 RUN curl -L https://github.com/haskell/ghcup-hs/releases/download/v${GHCUP_VERSION}/x86_64-linux-ghcup-${GHCUP_VERSION} -o /usr/local/bin/ghcup && \
     chmod +x /usr/local/bin/ghcup && \
     dnf install -y \
@@ -16,6 +18,5 @@ RUN curl -L https://github.com/haskell/ghcup-hs/releases/download/v${GHCUP_VERSI
     ncurses-compat-libs \
     xz \
     perl && \
-    dnf -y clean all
-
-COPY .bashrc.d/variables.sh /root/.bashrc.d/ghcup-variables.sh
+    dnf -y clean all && \
+    ghcup install ghc
