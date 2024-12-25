@@ -1,6 +1,11 @@
-ARG FEDORA_VERSION=41
+ARG PHP_VERSION="latest"
 
-FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
+FROM docker.io/library/php:${PHP_VERSION}
+
+RUN apt-get update -y && apt-get upgrade -y && \
+    apt-get install -y curl && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN curl -Lo phpactor.phar https://github.com/phpactor/phpactor/releases/latest/download/phpactor.phar && \
     chmod +x phpactor.phar && \
