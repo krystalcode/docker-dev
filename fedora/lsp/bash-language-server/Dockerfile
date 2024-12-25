@@ -1,6 +1,12 @@
-ARG FEDORA_VERSION=41
+ARG FEDORA_VERSION="41"
 
 FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
 
-RUN dnf -y install nodejs-bash-language-server shfmt && \
+RUN dnf -y install nodejs-bash-language-server shfmt socat && \
     dnf -y clean all
+
+COPY podman/entrypoint.sh /root
+
+ENTRYPOINT ["/root/entrypoint.sh"]
+
+EXPOSE 8892
