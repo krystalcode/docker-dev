@@ -5,7 +5,7 @@ FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
 RUN dnf -y install nodejs-bash-language-server shfmt socat && \
     dnf -y clean all
 
-COPY podman/entrypoint.sh /root
+COPY ./entrypoint.sh /root
 
 ENTRYPOINT ["/root/entrypoint.sh"]
 
