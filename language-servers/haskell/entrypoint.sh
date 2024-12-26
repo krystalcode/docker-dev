@@ -9,12 +9,6 @@ fi
 
 port=$1
 
-ghc_version=$2
-if [ -z "${ghc_version}" ]
-then
-    ghc_version="9.10.1"
-fi
-
 export LANG=C.UTF-8
 
-socat tcp-listen:"$port",reuseaddr exec:"haskell-language-server-${ghc_version}"
+socat tcp-listen:"$port",reuseaddr exec:"haskell-language-server-wrapper --lsp"
