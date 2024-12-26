@@ -7,7 +7,7 @@ ARG HLS_VERSION="2.9.0.1"
 
 RUN dnf -y install socat && \
     dnf -y clean all && \
-    ghcup install hls ${HLS_VERSION} && \
+    ghcup install hls --set ${HLS_VERSION} && \
     # Install the requested GHC if not provided by the base image.
     ghcup install ghc --set ${GHC_VERSION}
 
