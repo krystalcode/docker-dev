@@ -12,7 +12,7 @@ port=$1
 ghc_version=$2
 if [ -z "${ghc_version}" ]
 then
-    ghc_version="9.12.1"
+    ghc_version="9.10.1"
 fi
 
 export LANG=C.UTF-8
