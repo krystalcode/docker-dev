@@ -8,9 +8,8 @@ ARG HLS_VERSION="2.9.0.1"
 RUN dnf -y install socat && \
     dnf -y clean all && \
     ghcup install hls ${HLS_VERSION} && \
-    # Install the latest GHC rather than the recommended.
-    ghcup install ghc ${GHC_VERSION} && \
-    ghcup set ghc ${GHC_VERSION}
+    # Install the requested GHC if not provided by the base image.
+    ghcup install ghc --set ${GHC_VERSION}
 
 COPY podman/entrypoint.sh /root
 
