@@ -11,7 +11,7 @@ RUN dnf -y install socat && \
     # Install the requested GHC if not provided by the base image.
     ghcup install ghc --set ${GHC_VERSION}
 
-COPY podman/entrypoint.sh /root
+COPY ./entrypoint.sh /root
 
 ENTRYPOINT ["/root/entrypoint.sh"]
 
