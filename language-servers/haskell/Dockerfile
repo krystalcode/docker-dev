@@ -8,12 +8,16 @@ ARG HLS_VERSION="2.9.0.1"
 # corresponding binary for the latest version of HLS. That might be neither the
 # recommended nor the latest GHC version.
 ARG GHC_VERSION="9.10.1"
+# Unless otherwise specified, use the recommended Cabal version. Cabal is
+# required as well otherwise the language server raises an error when the client
+# tries to connect.
+ARG CABAL_VERSION="3.14.1.0"
 
 RUN dnf -y install socat && \
     dnf -y clean all && \
+    ghcup install ghc --set ${GHC_VERSION} && \
     ghcup install hls --set ${HLS_VERSION} && \
-    # Install the requested GHC if not provided by the base image.
-    ghcup install ghc --set ${GHC_VERSION}
+    ghcup install cabal --set ${CABAL_VERSION}
 
 COPY ./entrypoint.sh /root
 
