@@ -20,5 +20,4 @@ RUN curl -L https://github.com/haskell/ghcup-hs/releases/download/v${GHCUP_VERSI
     xz \
     perl && \
     dnf -y clean all && \
-    ghcup install ghc ${GHC_VERSION} && \
-    ghcup set ghc ${GHC_VERSION}
+    ghcup install ghc --set ${GHC_VERSION}
