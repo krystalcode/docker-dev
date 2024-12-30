@@ -1,9 +1,9 @@
-ARG FEDORA_VERSION=latest
+ARG FEDORA_VERSION="latest"
 
 FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
 
-ARG GHCUP_VERSION 0.1.30.0
-ARG GHC_VERSION 9.10.1
+ARG GHCUP_VERSION="0.1.30.0"
+ARG GHC_VERSION="recommended"
 
 COPY .bashrc.d/variables.sh /root/.bashrc.d/ghcup-variables.sh
 
