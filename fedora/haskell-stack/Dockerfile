@@ -1,9 +1,13 @@
-FROM krystalcode/f_fedora
+ARG GHCUP_VERSION="latest"
 
-    # Install stack.
-RUN dnf -y install stack && \
-    # Install other packages needed for development.
-    dnf -y install git && \
+FROM docker.io/krystalcode/f_ghcup:${GHCUP_VERSION}
 
-    # Clean up.
-    dnf -y clean all
+ARG GHC_VERSION="recommended"
+ARG STACK_VERSION="recommended"
+ARG CABAL_VERSION="recommended"
+ARG HLS_VERSION="recommended"
+
+RUN ghcup install ghc --set ${GHC_VERSION} && \
+    ghcup install stack --set ${STACK_VERSION} && \
+    ghcup install cabal --set ${CABAL_VERSION} && \
+    ghcup install hls --set ${HLS_VERSION}
