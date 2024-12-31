@@ -3,7 +3,6 @@ ARG FEDORA_VERSION="latest"
 FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
 
 ARG GHCUP_VERSION="0.1.30.0"
-ARG GHC_VERSION="recommended"
 
 COPY .bashrc.d/variables.sh /root/.bashrc.d/ghcup-variables.sh
 
@@ -19,5 +18,4 @@ RUN curl -L https://github.com/haskell/ghcup-hs/releases/download/v${GHCUP_VERSI
     ncurses-compat-libs \
     xz \
     perl && \
-    dnf -y clean all && \
-    ghcup install ghc --set ${GHC_VERSION}
+    dnf -y clean all
