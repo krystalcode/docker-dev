@@ -17,3 +17,4 @@ COPY ssh-config /root/.ssh/config
 # volume.
 COPY ssh-known-hosts /root/.ssh/known_hosts
 COPY rsync.to.sh /usr/local/bin/rsync.to
+COPY rsync.from.sh /usr/local/bin/rsync.from
