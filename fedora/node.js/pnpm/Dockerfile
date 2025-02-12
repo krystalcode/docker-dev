@@ -8,6 +8,9 @@ ENV PNPM_VERSION="latest"
 RUN . ${HOME}/.nvm/nvm.sh && \
     nvm install ${NODE_VERSION} && \
     printf '\n%s\n%s%s\n\n' '# Use default node version.' "nvm use " ${NODE_VERSION}  >> ~/.bashrc && \
+    # Make sure we run the latest version of `corepack`. Otherwise, an error may
+    # be raised when installing packages: "Cannot find matching keyid".
+    npm update -g corepack && \
     # Install PNPM.
     corepack enable pnpm && \
     corepack use pnpm@${PNPM_VERSION}
