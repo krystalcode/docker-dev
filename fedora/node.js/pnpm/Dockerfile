@@ -1,8 +1,8 @@
 FROM krystalcode/f_nvm
 
 # Set the Node.js version to the latest available.
-ENV NODE_VERSION="22"
-ENV PNPM_VERSION="latest"
+ARG NODE_VERSION="22"
+ARG PNPM_VERSION="latest"
 
     # Install the right Node.js version and set it as default.
 RUN . ${HOME}/.nvm/nvm.sh && \
