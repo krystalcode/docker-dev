@@ -8,6 +8,8 @@ RUN dnf -y install golang && \
     dnf -y clean all && \
     go install github.com/sqls-server/sqls@${SQLS_VERSION}
 
+COPY .bashrc.d/sqls.sh /root/.bashrc.d/
+
 COPY ./entrypoint.sh /root
 
 ENTRYPOINT ["/root/entrypoint.sh"]
