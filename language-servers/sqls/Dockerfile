@@ -4,7 +4,7 @@ FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
 
 ARG SQLS_VERSION="latest"
 
-RUN dnf -y install golang && \
+RUN dnf -y install socat golang && \
     dnf -y clean all && \
     go install github.com/sqls-server/sqls@${SQLS_VERSION}
 
