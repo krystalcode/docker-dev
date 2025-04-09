@@ -6,4 +6,6 @@ RUN dnf -y install cargo && \
     dnf -y clean all && \
     cargo install atuin
 
+COPY .bashrc.d/atuin.sh /root/.bashrc.d/
+
 ENTRYPOINT ["atuin", "server", "start"]
