@@ -8,4 +8,4 @@ RUN dnf -y install cargo && \
 
 COPY .bashrc.d/atuin.sh /root/.bashrc.d/
 
-ENTRYPOINT ["atuin", "server", "start"]
+ENTRYPOINT ["/root/.cargo/bin/atuin", "server", "start"]
