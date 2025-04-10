@@ -7,3 +7,5 @@ ARG K9S_VERSION="latest"
 RUN dnf -y install golang && \
     dnf -y clean all && \
     go install github.com/derailed/k9s@${K9S_VERSION}
+
+COPY k9s.sh /root/.bashrc.d/
