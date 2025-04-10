@@ -1,0 +1,26 @@
+ARG FEDORA_VERSION="38"
+
+FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
+
+ARG GCLOUD_VERSION="latest"
+
+COPY google-cloud-sdk.repo /etc/yum.repos.d/google-cloud-sdk.repo
+
+RUN dnf -y install libxcrypt-compat.x86_64
+
+RUN <<COMMAND
+set -eux
+if [ "${GCLOUD_VERSION}" = "latest" ];
+then
+    dnf -y install \
+        google-cloud-cli \
+        google-cloud-cli-gke-gcloud-auth-plugin
+else
+    dnf -y install \
+        google-cloud-cli-${GCLOUD_VERSION} \
+        google-cloud-cli-gke-gcloud-auth-plugin-${GCLOUD_VERSION} \
+        kubectl-${GCLOUD_VERSION}
+fi
+COMMAND
+
+RUN dnf -y clean all
