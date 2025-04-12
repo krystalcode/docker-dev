@@ -14,7 +14,7 @@ RUN dnf -y upgrade && \
     # "powerline" for better cli UX.
     powerline \
     # "bat" a better "cat".
-    bat && \
+    bat \
     # "which" is required by "powerline" (/usr/share/powerline/bash/powerline.sh).
     which \
     # "findutils" provides the "find" command.
@@ -23,9 +23,9 @@ RUN dnf -y upgrade && \
     wget \
     # "git" is used in pretty much all of images, so let's install it here so
     # that we don't have to do it on the inheriting images.
-    git && \
+    git \
     # "gawk" is required by "ble.sh".
-    gawk && \
+    gawk \
     # "make" is required to build "ble.sh", but good to have as a common build
     # and install tool.
     make && \
