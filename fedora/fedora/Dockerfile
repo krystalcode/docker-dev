@@ -11,6 +11,8 @@ RUN dnf -y upgrade && \
     dnf -y install \
     # "powerline" for better cli UX.
     powerline \
+    # "bat" a better "cat".
+    bat && \
     # "which" is required by "powerline" (/usr/share/powerline/bash/powerline.sh).
     which \
     # "findutils" provides the "find" command.
