@@ -24,8 +24,9 @@ RUN dnf -y upgrade && \
     # "git" is used in pretty much all of images, so let's install it here so
     # that we don't have to do it on the inheriting images.
     git \
-    # "gawk" is required by "ble.sh".
+    # "gawk" and "procps-ng" are required by "ble.sh".
     gawk \
+    procps-ng \
     # "make" is required to build "ble.sh", but good to have as a common build
     # and install tool.
     make && \
