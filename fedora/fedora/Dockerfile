@@ -1,4 +1,6 @@
-ARG FEDORA_VERSION=40
+# Not using "latest" because for some reason the "latest" label on the base
+# image is left behind.
+ARG FEDORA_VERSION=42
 
 FROM docker.io/library/fedora:${FEDORA_VERSION}
 
