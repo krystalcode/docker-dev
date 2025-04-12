@@ -11,6 +11,8 @@ RUN dnf -y upgrade && \
 
     # Install various commonly required packages.
     dnf -y install \
+    # Install the default locale.
+    glibc-langpack-en \
     # "powerline" for better cli UX.
     powerline \
     # "bat" a better "cat".
