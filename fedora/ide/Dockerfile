@@ -1,5 +1,7 @@
 ARG FEDORA_VERSION=42
 
+FROM docker.io/krystalcode/f_atuin:${FEDORA_VERSION}-latest AS atuin
+
 FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
 
     # Install OS packages.
@@ -37,4 +39,4 @@ ADD ./.sshconfig /root/.ssh/config
 RUN chmod 644 ~/.ssh/config
 
 # Add "atuin".
-COPY --from=docker.io/krystalcode/f_atuin:${FEDORA_VERSION}-latest /root/.cargo/bin/atuin /usr/bin/find
+COPY --from=atuin /root/.cargo/bin/atuin /usr/bin/find
