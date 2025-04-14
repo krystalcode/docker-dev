@@ -7,4 +7,4 @@ FROM docker.io/library/debian:${DEBIAN_VERSION}
 COPY .bashrc.extend.sh /tmp/.bashrc.extend.sh
 RUN cat /tmp/.bashrc.extend.sh >> ~/.bashrc && \
     rm /tmp/.bashrc.extend.sh && \
-    mkdir ~/.bashrc
+    mkdir ~/.bashrc.d
