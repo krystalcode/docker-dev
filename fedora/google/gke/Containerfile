@@ -14,7 +14,8 @@ if [ "${GCLOUD_VERSION}" = "latest" ];
 then
     dnf -y install \
         google-cloud-cli \
-        google-cloud-cli-gke-gcloud-auth-plugin
+        google-cloud-cli-gke-gcloud-auth-plugin \
+        kubectl
 else
     dnf -y install \
         google-cloud-cli-${GCLOUD_VERSION} \
