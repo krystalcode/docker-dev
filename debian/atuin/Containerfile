@@ -3,7 +3,7 @@ ARG DEBIAN_VERSION="12"
 FROM docker.io/library/debian:${DEBIAN_VERSION} AS cargo
 
 RUN apt-get update && \
-    apt-get install curl && \
+    apt-get -y install curl && \
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
     /root/.cargo/bin/cargo install atuin
 
