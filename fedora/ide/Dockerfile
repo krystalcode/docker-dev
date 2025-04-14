@@ -35,3 +35,8 @@ ADD ./.gitignore /root/
 # Add "ssh" configuration file.
 ADD ./.sshconfig /root/.ssh/config
 RUN chmod 644 ~/.ssh/config
+
+# Add "atuin".
+FROM docker.io/krystalcode/f_atuin:${FEDORA_VERSION}-latest AS atuin
+
+COPY --from=atuin /root/.cargo/bin/atuin /usr/bin/find
