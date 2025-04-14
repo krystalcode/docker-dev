@@ -1,11 +1,13 @@
 ARG FEDORA_VERSION="latest"
 
-FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
+FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION} AS cargo
 
 RUN dnf -y install cargo && \
     dnf -y clean all && \
     cargo install atuin
 
-COPY .bashrc.d/atuin.sh /root/.bashrc.d/
+FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
 
-ENTRYPOINT ["/root/.cargo/bin/atuin", "server", "start"]
+COPY --from=cargo /root/.cargo/bin/atuin /usr/bin/
+
+ENTRYPOINT ["/usr/bin/atuin", "server", "start"]
