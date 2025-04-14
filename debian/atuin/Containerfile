@@ -4,6 +4,7 @@ FROM docker.io/library/debian:${DEBIAN_VERSION} AS cargo
 
 RUN apt-get update && \
     apt-get -y install curl && \
+    apt -y install build-essential && \
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
     /root/.cargo/bin/cargo install atuin
 
