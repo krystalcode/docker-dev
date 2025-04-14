@@ -1,0 +1,19 @@
+ARG DEBIAN_VERSION="12"
+
+FROM docker.io/library/debian:${DEBIAN_VERSION}
+
+ENV BLE_SH_MAKE_DIR=/tmp/ble.sh
+
+RUN apt-get update && \
+    apt-get install -y gawk git make && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    mkdir ${BLE_SH_MAKE_DIR} && \
+    cd ${BLE_SH_MAKE_DIR} && \
+    git clone --recursive --depth=1 -b master https://github.com/akinomyoga/ble.sh.git && \
+    cd ${BLE_SH_MAKE_DIR}/ble.sh && \
+    make && \
+    make install clean && \
+    rm -rf ${BLE_SH_MAKE_DIR} && \
+    sed -i '1s/^/[[ $- == *i* ]] \&\& source ~\/.local\/share\/blesh\/ble\.sh --noattach\n\n/' ~/.bashrc && \
+    echo '[[ ! ${BLE_VERSION-} ]] || ble-attach' >> ~/.bashrc
