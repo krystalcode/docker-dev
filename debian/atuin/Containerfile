@@ -1,0 +1,15 @@
+ARG DEBIAN_VERSION="12"
+
+FROM docker.io/library/debian:${DEBIAN_VERSION} AS cargo
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
+    /root/.cargo/bin/cargo install atuin
+
+
+FROM docker.io/library/debian:${DEBIAN_VERSION}
+
+COPY --from=cargo /root/.cargo/bin/atuin /usr/bin/
+
+RUN cat atuin-client.sh >> /root/.bashrc
+
+ENTRYPOINT ["/usr/bin/atuin", "server", "start"]
