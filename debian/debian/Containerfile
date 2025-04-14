@@ -1,0 +1,10 @@
+ARG DEBIAN_VERSION="latest"
+
+FROM docker.io/library/debian:${DEBIAN_VERSION}
+
+# Allow extending .bashrc with files.
+# Unless we copy the file first, it is not found.
+COPY .bashrc.extend.sh /tmp/.bashrc.extend.sh
+RUN cat /tmp/.bashrc.extend.sh >> ~/.bashrc && \
+    rm /tmp/.bashrc.extend.sh && \
+    mkdir ~/.bashrc
