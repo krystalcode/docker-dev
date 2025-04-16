@@ -19,4 +19,4 @@ RUN dnf -y install git make gcc-c++ && \
     sed -e :a -e '$d;N;2,3ba' -e 'P;D' ~/.bashrc > /tmp/.bashrc && \
     mv -f /tmp/.bashrc ~/.bashrc
 
-COPY .bashrc.d/nvm.sh ~/.bashrc.d/
+COPY .bashrc.d/nvm.sh /root/.bashrc.d/
