@@ -22,5 +22,5 @@ RUN . ${HOME}/.nvm/nvm.sh && \
     corepack use pnpm@${PNPM_VERSION}
 
 # Add "atuin".
-COPY --from=atuin /usr/bin//atuin /usr/bin/
+COPY --from=atuin /usr/bin/atuin /usr/bin/
 COPY --from=atuin /root/.bashrc.d/atuin-client.sh /root/.bashrc.d/
