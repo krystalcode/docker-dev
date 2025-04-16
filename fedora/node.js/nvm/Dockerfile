@@ -1,6 +1,8 @@
-FROM krystalcode/f_fedora
+ARG FEDORA_VERSION="latest"
 
-ENV NVM_VERSION 0.39.7
+FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
+
+ENV NVM_VERSION="0.40.2"
 
     # Install OS packages required.
     # Install "git", "make" and "gcc-c++", required by "npm" for installing some
