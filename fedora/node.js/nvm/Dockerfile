@@ -10,4 +10,13 @@ ENV NVM_VERSION="v0.40.2"
 RUN dnf -y install git make gcc-c++ && \
     dnf clean all && \
     # Install "nvm".
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/{$NVM_VERSION}/install.sh | bash
+    #
+    # Move its Bash configuration to a separate file. The installation script
+    # adds it directly at the end of `.bashrc`, so we strip out. Strangely, when
+    # we direct the output of `sed` (or `head -n -3` - if we were to use that)
+    # to overwrite the file, it is emptied. We therefore use a temporary file.
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/{$NVM_VERSION}/install.sh | bash && \
+    sed -e :a -e '$d;N;2,3ba' -e 'P;D' ~/.bashrc > /tmp/.bashrc && \
+    mv -f /tmp/.bashrc ~/.bashrc
+
+COPY .bashrc.d/nvm.sh ~/.bashrc.d/
