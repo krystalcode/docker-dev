@@ -1,4 +1,10 @@
-FROM krystalcode/f_nvm
+ARG FEDORA_VERSION="latest"
+
+FROM docker.io/krystalcode/f_atuin:${FEDORA_VERSION}-latest AS atuin
+
+ARG NVM_VERSION="latest"
+
+FROM krystalcode/f_nvm:${FEDORA_VERSION}-${NVM_VERSION}
 
 # Set the Node.js version to the latest available.
 ARG NODE_VERSION="22"
@@ -14,3 +20,7 @@ RUN . ${HOME}/.nvm/nvm.sh && \
     # Install PNPM.
     corepack enable pnpm && \
     corepack use pnpm@${PNPM_VERSION}
+
+# Add "atuin".
+COPY --from=atuin /usr/bin//atuin /usr/bin/
+COPY --from=atuin /root/.bashrc.d/atuin-client.sh /root/.bashrc.d/
