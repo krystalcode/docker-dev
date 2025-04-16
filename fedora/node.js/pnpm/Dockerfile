@@ -27,4 +27,4 @@ COPY --from=atuin /usr/bin/atuin /usr/bin/
 COPY --from=atuin /root/.bashrc.d/atuin-client.sh /root/.bashrc.d/
 
 # Add "just".
-COPY --from=atuin /usr/bin/just /usr/bin/
+COPY --from=just /usr/bin/just /usr/bin/
