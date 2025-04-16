@@ -1,10 +1,9 @@
 ARG FEDORA_VERSION="latest"
+ARG NVM_VERSION="latest"
 
 FROM docker.io/krystalcode/f_atuin:${FEDORA_VERSION}-latest AS atuin
 
 FROM docker.io/krystalcode/f_just:${FEDORA_VERSION}-latest AS just
-
-ARG NVM_VERSION="latest"
 
 FROM krystalcode/f_nvm:${FEDORA_VERSION}-${NVM_VERSION}
 
