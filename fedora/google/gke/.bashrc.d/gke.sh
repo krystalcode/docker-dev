@@ -2,7 +2,7 @@
 alias g='gcloud --project ${GCLOUD_PROJECT} --account ${GCLOUD_ACCOUNT}'
 
 if g projects list &> /dev/null; then
-    echo "Logged as as ${GCLOUD_ACCOUNT}"
+    g auth list
 else
     g auth login
     g auth list
