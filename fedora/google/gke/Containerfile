@@ -38,3 +38,5 @@ COPY --from=atuin /root/.bashrc.d/atuin-client.sh /root/.bashrc.d/
 
 # Add "just".
 COPY --from=just /usr/bin/just /usr/bin/
+
+WORKDIR /root
