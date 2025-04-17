@@ -25,3 +25,5 @@ fi
 COMMAND
 
 RUN dnf -y clean all
+
+COPY .bashrc.d/gke.sh /root/.bashrc.d/
