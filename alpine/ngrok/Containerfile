@@ -1,0 +1,10 @@
+ARG NGROK_VERSION="alpine"
+
+FROM docker.io/ngrok/ngrok:alpine
+
+# Add the home directory so that a configuration file can be added to the
+# default location.
+USER root
+RUN mkdir -p /home/ngrok/.config/ngrok && \
+    chown -R ngrok:ngrok /home/ngrok
+USER ngrok
