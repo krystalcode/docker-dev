@@ -8,3 +8,7 @@ COPY .bashrc.extend.sh /tmp/.bashrc.extend.sh
 RUN cat /tmp/.bashrc.extend.sh >> ~/.bashrc && \
     rm /tmp/.bashrc.extend.sh && \
     mkdir ~/.bashrc.d
+
+# Dotenv.
+RUN curl -L -o /usr/bin/dotenv https://raw.githubusercontent.com/bashup/dotenv/refs/heads/master/dotenv && \
+    chmod +x /usr/bin/dotenv
