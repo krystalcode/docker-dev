@@ -10,5 +10,9 @@ RUN cat /tmp/.bashrc.extend.sh >> ~/.bashrc && \
     mkdir ~/.bashrc.d
 
 # Dotenv.
-RUN curl -L -o /usr/bin/dotenv https://raw.githubusercontent.com/bashup/dotenv/refs/heads/master/dotenv && \
+RUN apt-get update && \
+    apt-get -y install curl && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    curl -L -o /usr/bin/dotenv https://raw.githubusercontent.com/bashup/dotenv/refs/heads/master/dotenv && \
     chmod +x /usr/bin/dotenv
