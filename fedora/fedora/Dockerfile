@@ -47,7 +47,6 @@ RUN cat /tmp/.bashrc.extend.sh >> ~/.bashrc && \
 # Add .bashrc extensions.
 COPY .bashrc.d/aliases.sh /root/.bashrc.d/aliases.sh
 COPY .bashrc.d/variables.sh /root/.bashrc.d/variables.sh
-COPY .bashrc.d/oh-my-posh.sh /root/.bashrc.d/oh-my-posh.sh
 
 # Install and configure "oh-my-posh".
 # We don't make the version available as an argument; we always install the
