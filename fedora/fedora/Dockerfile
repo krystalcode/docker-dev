@@ -68,9 +68,10 @@ COPY oh-my-posh.runnah.minimal.omp.json /root/.config/oh-my-posh/themes/runnah.m
 COPY .bashrc.d/oh-my-posh.sh /root/.bashrc.d/
 
 # Install and configure `ble.sh`.
+ENV BLE_SH_REPO="akinomyoga/ble.sh"
 RUN mkdir ${BLE_SH_MAKE_DIR} && \
     cd ${BLE_SH_MAKE_DIR} && \
-    git clone --recursive --depth=1 -b master https://github.com/akinomyoga/ble.sh.git && \
+    git clone --recursive --depth=1 -b master https://github.com/${BLE_SH_REPO}.git && \
     cd ${BLE_SH_MAKE_DIR}/ble.sh && \
     make && \
     make install clean && \
