@@ -39,5 +39,5 @@ ADD ./.sshconfig /root/.ssh/config
 RUN chmod 644 ~/.ssh/config
 
 # Add "atuin".
-COPY --from=atuin /usr/bin//atuin /usr/bin/
+COPY --from=atuin /usr/bin/atuin /usr/bin/
 COPY --from=atuin /root/.bashrc.d/atuin-client.sh /root/.bashrc.d/
