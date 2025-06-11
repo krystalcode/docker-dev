@@ -1,4 +1,4 @@
-ARG FEDORA_VERSION=42
+ARG FEDORA_VERSION="latest"
 
 FROM docker.io/krystalcode/f_atuin:${FEDORA_VERSION}-latest AS atuin
 
