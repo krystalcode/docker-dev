@@ -2,8 +2,6 @@ ARG DEBIAN_VERSION="latest"
 
 FROM docker.io/library/debian:${DEBIAN_VERSION}
 
-ARG OH_MY_POSH_VERSION="latest"
-
 # Allow extending .bashrc with files.
 # Unless we copy the file first, it is not found.
 COPY .bashrc.extend.sh /tmp/.bashrc.extend.sh
@@ -25,7 +23,10 @@ RUN apt-get update && \
     chmod +x /usr/bin/dotenv
 
 # `oh-my-posh`.
+# We don't make the version available as an argument; we always install the
+# latest version like other utilities.
 ENV OH_MY_POSH_REPO="JanDeDobbeleer/oh-my-posh"
+ENV OH_MY_POSH_VERSION="latest"
 RUN <<COMMAND
 set -eux
 if [ "${OH_MY_POSH_VERSION}" = "latest" ];
