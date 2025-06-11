@@ -41,10 +41,11 @@ RUN dnf -y upgrade && \
 # Allow extending .bashrc with files.
 # Unless we copy the file first, it is not found.
 COPY .bashrc.extend.sh /tmp/.bashrc.extend.sh
-RUN cat /tmp/.bashrc.extend.sh >> ~/.bashrc
+RUN cat /tmp/.bashrc.extend.sh >> ~/.bashrc && \
+    rm /tmp/.bashrc.extend.sh && \
+    mkdir ~/.bashrc.d
 
 # Add .bashrc extensions.
-RUN mkdir ~/.bashrc.d
 COPY .bashrc.d/oh-my-posh.sh /root/.bashrc.d/oh-my-posh.sh
 COPY .bashrc.d/variables.sh /root/.bashrc.d/variables.sh
 
