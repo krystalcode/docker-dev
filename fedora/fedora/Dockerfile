@@ -46,7 +46,7 @@ RUN cat /tmp/.bashrc.extend.sh >> ~/.bashrc && \
     mkdir ~/.bashrc.d
 
 # Add .bashrc extensions.
-COPY .bashrc.d/variables.sh /root/.bashrc.d/aliases.sh
+COPY .bashrc.d/aliases.sh /root/.bashrc.d/aliases.sh
 COPY .bashrc.d/variables.sh /root/.bashrc.d/variables.sh
 COPY .bashrc.d/oh-my-posh.sh /root/.bashrc.d/oh-my-posh.sh
 
