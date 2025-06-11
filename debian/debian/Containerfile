@@ -11,6 +11,10 @@ RUN cat /tmp/.bashrc.extend.sh >> ~/.bashrc && \
     rm /tmp/.bashrc.extend.sh && \
     mkdir ~/.bashrc.d
 
+# Add .bashrc extensions.
+COPY .bashrc.d/aliases.sh /root/.bashrc.d/aliases.sh
+COPY .bashrc.d/variables.sh /root/.bashrc.d/variables.sh
+
 # Dotenv.
 ENV DOTENV_REPO="bashup/dotenv"
 RUN apt-get update && \
