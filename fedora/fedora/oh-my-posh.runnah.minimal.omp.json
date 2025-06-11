@@ -1,9 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "transient_prompt": {
-    "background": "transparent",
-    "foreground": "#ffffff",
-    "template": "$> ",
+    "template": "{{ if .Root }}<#ffffff,#c1121f>$></>{{ else }}<#d6dbdd,#5d226b>$></>{{ end }} ",
     "newline": true
   },
   "blocks": [
@@ -18,15 +16,15 @@
           "type": "text"
         },
         {
-          "background": "#5d226b",
-          "foreground": "#d6dbdd",
+          "background": "#c1121f",
+          "foreground": "#ffffff",
           "style": "powerline",
           "template": "{{ if .Root }}{{ if .SSHSession }} SSH: {{ end }} {{ .UserName }}@{{ .HostName }} {{ end }}",
           "type": "session"
         },
         {
-          "background": "#95ffa4",
-          "foreground": "#100e23",
+          "background": "#5d226b",
+          "foreground": "#d6dbdd",
           "style": "powerline",
           "template": "{{ if .Root }}{{ else }}{{ if .SSHSession }} SSH: {{ end }} {{ .UserName }}@{{ .HostName }} {{ end }}",
           "type": "session"
