@@ -6,16 +6,16 @@ ENV BLE_SH_MAKE_DIR=/tmp/ble.sh
 
     # Upgrade packages.
 RUN dnf -y upgrade && \
-
     # Install various commonly required packages.
     dnf -y install \
     # Install the default locale.
     glibc-langpack-en \
-    # "powerline" for better cli UX.
-    powerline \
     # "bat" a better "cat".
     bat \
-    # "which" is required by "powerline" (/usr/share/powerline/bash/powerline.sh).
+    # "unzip" is required by the "oh-my-posh" installation script.
+    unzip \
+    # "which" is required by the "oh-my-posh" bash extension
+    # (~/.bashrc.d/oh-my-posh.sh); good to have it anyway.
     which \
     # "findutils" provides the "find" command.
     findutils \
@@ -25,6 +25,7 @@ RUN dnf -y upgrade && \
     # that we don't have to do it on the inheriting images.
     git \
     # "gawk" and "procps-ng" are required by "ble.sh".
+    # "awk" - installed together with "gawk" is also required by "oh-my-posh".
     gawk \
     procps-ng \
     # "make" is required to build "ble.sh", but good to have as a common build
@@ -44,11 +45,13 @@ RUN cat /tmp/.bashrc.extend.sh >> ~/.bashrc
 
 # Add .bashrc extensions.
 RUN mkdir ~/.bashrc.d
-COPY .bashrc.d/powerline.sh /root/.bashrc.d/powerline.sh
+COPY .bashrc.d/oh-my-posh.sh /root/.bashrc.d/oh-my-posh.sh
 COPY .bashrc.d/variables.sh /root/.bashrc.d/variables.sh
 
-# Configure "powerline" theme so that it shows "git" branch info.
-COPY powerline.json /root/.config/powerline/config.json
+# Install and configure "oh-my-posh".
+RUN curl -s https://ohmyposh.dev/install.sh | bash -s
+# @I Make the theme easily extensible by the service run
+COPY oh-my-posh.runnah.minimal.omp.json /root/.config/oh-my-posh/themes/runnah.minimal.omp.json
 
 # Install and configure `ble.sh`.
 RUN mkdir ${BLE_SH_MAKE_DIR} && \
