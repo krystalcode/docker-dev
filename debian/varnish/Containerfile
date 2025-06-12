@@ -1,0 +1,40 @@
+ARG DEBIAN_VERSION="12-slim"
+ARG VARNISH_VERSION="latest"
+
+FROM docker.io/krystalcode/d_debian:${DEBIAN_VERSION} as debian
+
+FROM docker.io/krystalcode/d_ble_sh:${DEBIAN_VERSION}-latest as ble.sh
+
+FROM docker.io/krystalcode/d_atuin:${DEBIAN_VERSION}-latest AS atuin
+
+FROM docker.io/varnish:${VARNISH_VERSION}
+
+ARG VARNISH_HOME=/home/varnish
+
+# Add the home directory so that we can add bash extensions.
+USER root
+RUN mkdir -p ${VARNISH_HOME} && \
+    chown -R varnish:varnish ${VARNISH_HOME}
+
+# Bash extensions.
+COPY --from=debian --chown=varnish /root/.bashrc ${VARNISH_HOME}/
+COPY --from=debian --chown=varnish /root/.bashrc.d ${VARNISH_HOME}/.bashrc.d
+
+# Oh My Posh.
+# The Bash extension is copied in the "Bash extensions" section above.
+COPY --from=debian /usr/bin/oh-my-posh /usr/bin/
+COPY --from=debian --chown=varnish /root/.config/oh-my-posh/themes/runnah.minimal.omp.json ${VARNISH_HOME}/.config/oh-my-posh/themes/runnah.minimal.omp.json
+
+# `ble.sh`.
+COPY --from=ble.sh --chown=varnish /root/.local/share/blesh ${VARNISH_HOME}/.local/share/blesh
+COPY --from=ble.sh --chown=varnish /root/.local/share/doc/blesh ${VARNISH_HOME}/.local/share/doc/blesh
+
+RUN sed -i '1s/^/[[ $- == *i* ]] \&\& source ~\/.local\/share\/blesh\/ble\.sh --noattach\n\n/' ~/.bashrc && \
+    echo '[[ ! ${BLE_VERSION-} ]] || ble-attach' >> ~/.bashrc
+
+# Atuin.
+COPY --from=atuin /usr/bin/atuin /usr/bin/
+COPY --from=atuin --chown=varnish /root/.bashrc.d/atuin-client.sh ${VARNISH_HOME}.bashrc.d/
+
+USER varnish
+ENV HOME=${VARNISH_HOME}
