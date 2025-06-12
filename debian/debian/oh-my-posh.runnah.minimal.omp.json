@@ -97,7 +97,7 @@
         {
           "foreground": "#757575",
           "style": "plain",
-          "template": "{{ .Name }}",
+          "template": "{{ if .Env.RUNNAH_SERVICE }}{{ .Env.RUNNAH_SERVICE }}{{ else }}{{ .Name }}{{ end }}",
           "type": "shell"
         },
         {
