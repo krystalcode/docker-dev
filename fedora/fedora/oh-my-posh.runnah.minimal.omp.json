@@ -106,7 +106,7 @@
             "time_format": "15:04:05"
           },
           "style": "plain",
-          "template": " | {{ .CurrentDate | date .Format }}",
+          "template": " | {{ .CurrentDate | date .Format }} ",
           "type": "time"
         }
       ],
