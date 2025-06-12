@@ -5,7 +5,7 @@ FROM docker.io/krystalcode/f_atuin:${FEDORA_VERSION}-latest AS atuin
 
 FROM docker.io/krystalcode/f_just:${FEDORA_VERSION}-latest AS just
 
-FROM krystalcode/f_nvm:${FEDORA_VERSION}-${NVM_VERSION}
+FROM docker.io/krystalcode/f_nvm:${FEDORA_VERSION}-${NVM_VERSION}
 
 # Set the Node.js version to the latest available.
 ARG NODE_VERSION="22"
