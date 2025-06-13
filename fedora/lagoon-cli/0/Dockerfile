@@ -15,7 +15,6 @@ if [ "${LAGOON_CLI_VERSION}" = "latest" ];
 then
     LAGOON_CLI_VERSION=$(curl --silent "https://api.github.com/repos/${LAGOON_CLI_REPO}/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
 fi
-    echo "Version: ${LAGOON_CLI_VERSION}"
     curl -L -o /usr/bin/lagoon "https://github.com/${LAGOON_CLI_REPO}/releases/download/${LAGOON_CLI_VERSION}/lagoon-cli-${LAGOON_CLI_VERSION}-linux-amd64" && \
     chmod +x /usr/bin/lagoon
 COMMAND
