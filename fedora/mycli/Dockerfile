@@ -1,4 +1,6 @@
-FROM docker.io/krystalcode/f_fedora
+ARG FEDORA_VERSION="latest"
+
+FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
 
     # Upgrade packages.
 RUN dnf -y upgrade && \
