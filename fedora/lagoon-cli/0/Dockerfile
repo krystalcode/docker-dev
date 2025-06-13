@@ -1,13 +1,24 @@
-ARG FEDORA_VERSION=38
+ARG FEDORA_VERSION="latest"
 
 FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
 
-ARG LAGOON_VERSION 0.17.0
+ARG LAGOON_VERSION="latest"
 
 RUN dnf -y install rsync && \
-    dnf -y clean all && \
-    curl -L "https://github.com/uselagoon/lagoon-cli/releases/download/v${LAGOON_VERSION}/lagoon-cli-v${LAGOON_VERSION}-linux-amd64" -o /usr/local/bin/lagoon && \
-    chmod +x /usr/local/bin/lagoon
+    dnf -y clean all
+
+ENV LAGOON_CLI_REPO="uselagoon/lagoon-cli"
+ENV LAGOON_CLI_VERSION="latest"
+RUN <<COMMAND
+set -eux
+if [ "${LAGOON_CLI_VERSION}" = "latest" ];
+then
+    LAGOON_CLI_VERSION=$(curl --silent "https://api.github.com/repos/${LAGOON_CLI_REPO}/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+fi
+    echo "Version: ${LAGOON_CLI_VERSION}"
+    curl -L -o /usr/bin/lagoon "https://github.com/${LAGOON_CLI_REPO}/releases/download/${LAGOON_CLI_VERSION}/lagoon-cli-${LAGOON_CLI_VERSION}-linux-amd64" && \
+    chmod +x /usr/bin/lagoon
+COMMAND
 
 COPY .bashrc.d/lagoon.aliases.sh /root/.bashrc.d/
 COPY ssh-config /root/.ssh/config
