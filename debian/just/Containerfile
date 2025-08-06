@@ -11,3 +11,6 @@ RUN apt-get update && \
 FROM docker.io/krystalcode/d_debian:${DEBIAN_VERSION}
 
 COPY --from=cargo /root/.cargo/bin/just /usr/bin/
+
+# Add .bashrc extensions.
+COPY .bashrc.d/just.aliases.sh /root/.bashrc.d/
