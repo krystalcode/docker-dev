@@ -28,3 +28,4 @@ COPY --from=atuin /root/.bashrc.d/atuin-client.sh /root/.bashrc.d/
 
 # Add "just".
 COPY --from=just /usr/bin/just /usr/bin/
+COPY --from=just /root/.bashrc.d/just.aliases.sh /root/.bashrc.d/
