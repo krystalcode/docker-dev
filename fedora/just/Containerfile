@@ -9,3 +9,6 @@ RUN dnf -y install cargo && \
 FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
 
 COPY --from=cargo /root/.cargo/bin/just /usr/bin/
+
+# Add .bashrc extensions.
+COPY .bashrc.d/just.aliases.sh /root/.bashrc.d/
