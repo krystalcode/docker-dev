@@ -1,0 +1,20 @@
+ARG NVM_VERSION="latest"
+
+FROM docker.io/krystalcode/f_nvm:${NVM_VERSION}
+
+# Set the Node.js version to the latest available.
+ARG NODE_VERSION="22"
+ARG ANGULAR_VERSION="latest"
+
+    # Install the right Node.js version and set it as default.
+RUN . ${HOME}/.nvm/nvm.sh && \
+    nvm install ${NODE_VERSION} && \
+    printf '\n%s\n%s%s\n\n' '# Use default node version.' "nvm use " ${NODE_VERSION}  >> ~/.bashrc && \
+
+    # Globally install 'tabby-agent'.
+    nvm use ${NODE_VERSION} && \
+    npm install -g tabby-agent
+
+ENTRYPOINT ["/root/entrypoint.sh"]
+
+EXPOSE 8896
