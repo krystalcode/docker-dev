@@ -1,0 +1,30 @@
+ARG FEDORA_VERSION="latest"
+
+FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
+
+ARG TABBY_SERVER_VERSION="latest"
+
+# @I Support CUDA
+ENV TABBY_SERVER_REPO="TabbyML/tabby"
+ENV TABBY_FILENAME="tabby_x86_64-manylinux_2_28"
+ENV TABBY_TMP_DIR="/tmp/tabby"
+
+RUN <<COMMAND
+set -eux
+if [ "${TABBY_SERVER_VERSION}" = "latest" ];
+then
+    TABBY_SERVER_VERSION=$(curl --silent "https://api.github.com/repos/${TABBY_SERVER_REPO}/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+fi
+mkdir ${TABBY_TMP_DIR}
+curl -L -o ${TABBY_TMP_DIR}/tabby.tar.gz https://github.com/${TABBY_SERVER_REPO}/releases/download/${TABBY_SERVER_VERSION}/${TABBY_FILENAME}.tar.gz
+tar -C ${TABBY_TMP_DIR} -xvf ${TABBY_TMP_DIR}/tabby.tar.gz
+chmod +x ${TABBY_TMP_DIR}/${TABBY_FILENAME}/tabby
+mv ${TABBY_TMP_DIR}/${TABBY_FILENAME}/tabby /usr/bin/
+chmod +x ${TABBY_TMP_DIR}/${TABBY_FILENAME}/llama-server
+mv ${TABBY_TMP_DIR}/${TABBY_FILENAME}/llama-server /usr/bin/
+rm -rf ${TABBY_TMP_DIR}
+COMMAND
+
+COPY ./entrypoint.sh /root
+
+ENTRYPOINT ["/root/entrypoint.sh"]
