@@ -11,4 +11,4 @@ port=$1
 
 export LANG=C.UTF-8
 
-socat tcp-listen:"$port",reuseaddr exec:"npx tabby-agent --stdio"
+socat tcp-listen:"$port",reuseaddr exec:"npx tabby-agent --lsp --stdio"
