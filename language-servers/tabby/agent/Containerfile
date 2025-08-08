@@ -6,6 +6,9 @@ FROM docker.io/krystalcode/f_nvm:${NVM_VERSION}
 ARG NODE_VERSION="22"
 ARG ANGULAR_VERSION="latest"
 
+RUN dnf -y install socat && \
+    dnf -y clean all
+
     # Install the right Node.js version and set it as default.
 RUN . ${HOME}/.nvm/nvm.sh && \
     nvm install ${NODE_VERSION} && \
