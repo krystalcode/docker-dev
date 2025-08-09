@@ -24,7 +24,7 @@ case "${action}" in
             tabby serve --model "${model}"
         else
             chat_model=$3
-            tabby serve --host "127.0.0.1" --model "${model}" --chat-model "${chat_model}"
+            tabby serve --model "${model}" --chat-model "${chat_model}"
         fi
         ;;
 
