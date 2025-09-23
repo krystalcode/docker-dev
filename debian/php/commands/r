@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# Makes it easy to run a command multiple times.
+# Run a Just task 3 times: r 3 j my-task
+
+times=$1
+
+regex='^[0-9]+$'
+if ! [[ $times =~ $regex ]] ; then
+    echo "Please provide the number of times to repeat the command"
+    exit 1
+fi
+
+shift
+
+if [ -z "$@" ]
+then
+    echo "Please provide the command to execute"
+    exit 2
+fi
+
+for (( i = 0; i < $times; i++ ))
+do
+    "$@"
+done

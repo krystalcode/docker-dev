@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Create a Just shortcut command alias that can be run from anywhere in the
+# filesystem. We do not do this using a bash alias or function because they
+# wouldn't be available to `podman run` or `podman-compose exec`.
+current_dir=${PWD}
+
+app_root=${APP_PROJECT_ROOT:-/src}
+cd ${app_root}
+
+/usr/bin/just "$@"
+
+cd ${current_dir}

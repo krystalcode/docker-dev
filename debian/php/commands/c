@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Create a Composer command alias that can be run from anywhere in the
+# filesystem and that does not have any memory limits as dependency resolution
+# requires a lot of memory and Composer frequently fails if there is a limit in
+# the memory it can use. We do not do this using a bash alias or function
+# because they wouldn't be available to `podman run` or `podman-compose exec`.
+CURRENT_DIR=$PWD
+
+app_root=${APP_PROJECT_ROOT:-/src}
+
+if ! command -v composer &> /dev/null
+then
+    export PATH=$PATH:${app_root}/bin:${app_root}/vendor/bin
+fi
+
+cd ${app_root}
+COMPOSER_MEMORY_LIMIT=-1 COMPOSER_ALLOW_SUPERUSER=1 composer "$@"
+
+cd $CURRENT_DIR

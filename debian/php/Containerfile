@@ -1,0 +1,91 @@
+ARG DEBIAN_VERSION="13"
+ARG PHP_VERSION="8.4"
+
+FROM docker.io/krystalcode/d_debian:${DEBIAN_VERSION} as debian
+
+FROM docker.io/krystalcode/d_ble_sh:${DEBIAN_VERSION}-latest as ble.sh
+
+FROM docker.io/krystalcode/d_atuin:${DEBIAN_VERSION}-latest as atuin
+
+FROM docker.io/krystalcode/d_just:${DEBIAN_VERSION}-latest as just
+
+FROM docker.io/library/php:${PHP_VERSION}-cli
+
+ENV PHP_EXTENSION_MAKE_DIR=/tmp/php-make
+
+    # Install OS packages required.
+    # Required by php extensions: libcurl4-gnutls-dev libonig-dev
+    # Required by composer for installing certain packages: git unzip
+    # Required for text editing: vim
+    # Required for `ble.sh`: gawk
+RUN apt-get update && \
+    apt-get -y install \
+    libcurl4-gnutls-dev \
+    libzip-dev \
+    libonig-dev \
+    git \
+    unzip \
+    vim \
+    gawk && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+    # We install PHP extensions on a separate RUN command because we change
+    # directories for building some extensions from source. Changing directory
+    # is carried over within the rest of the commands but it is reset to the
+    # WORKDIR on the next RUN command. This way we avoid accidentally running
+    # commands in the wrong directory - has happened. We will be squashing the
+    # image layers anyway.
+    # Create the directory used for building extensions from source.
+RUN mkdir ${PHP_EXTENSION_MAKE_DIR} && \
+    # Install commonly used/required PHP extensions.
+    docker-php-ext-install mbstring curl bcmath pcntl zip && \
+    # Install the `xdebug` extension used for development/debugging purposes.
+    printf "\n" | pecl install xdebug && \
+    docker-php-ext-enable xdebug && \
+    # Clean up.
+    rm -rf /tmp/pear && \
+    rm -rf ${PHP_EXTENSION_MAKE_DIR}
+
+    # Install 'composer'.
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer && \
+    # Create a user that should own the application files.
+    groupadd -r application && useradd -r -g application application
+
+# Add command for running Composer from anywhere in the filesystem.
+ADD ./commands/c /usr/local/bin/c
+
+# Add command for running another command multiple times.
+ADD ./commands/r /usr/local/bin/r
+
+# PHP configuration.
+ADD php-application-errors.ini /usr/local/etc/php/conf.d/application-errors.ini
+ADD php-application-execution.ini /usr/local/etc/php/conf.d/application-execution.ini
+ADD php-application-xdebug.ini /usr/local/etc/php/conf.d/application-xdebug.ini
+
+# Bash extensions.
+COPY --from=debian /root/.bashrc /root/
+COPY --from=debian /root/.bashrc.d /root/.bashrc.d
+
+# `dotenv`.
+COPY --from=debian /usr/bin/dotenv /usr/bin/dotenv
+
+# `ble.sh`.
+COPY --from=ble.sh /root/.local/share/blesh /root/.local/share/blesh
+COPY --from=ble.sh /root/.local/share/doc/blesh /root/.local/share/doc/blesh
+
+RUN sed -i '1s/^/[[ $- == *i* ]] \&\& source ~\/.local\/share\/blesh\/ble\.sh --noattach\n\n/' ~/.bashrc && \
+    echo '[[ ! ${BLE_VERSION-} ]] || ble-attach' >> ~/.bashrc
+
+# Oh My Posh.
+# The Bash extension is copied in the "Bash extensions" section above.
+COPY --from=debian /usr/bin/oh-my-posh /usr/bin/
+COPY --from=debian /root/.config/oh-my-posh/themes/runnah.minimal.omp.json /root/.config/oh-my-posh/themes/runnah.minimal.omp.json
+
+# Atuin.
+COPY --from=atuin /usr/bin/atuin /usr/bin/
+COPY --from=atuin /root/.bashrc.d/atuin-client.sh /root/.bashrc.d/
+
+# Just.
+COPY --from=just /usr/bin/just /usr/bin/
+ADD ./commands/j /usr/local/bin/j
