@@ -21,6 +21,8 @@ RUN dnf -y upgrade && \
     findutils \
     tar \
     wget \
+    # "lsd" a better "ls".
+    lsd \
     # "git" is used in pretty much all of images, so let's install it here so
     # that we don't have to do it on the inheriting images.
     git \
