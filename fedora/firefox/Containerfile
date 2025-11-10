@@ -1,0 +1,9 @@
+ARG FEDORA_VERSION="latest"
+
+FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
+
+RUN dnf -y install firefox && \
+    dnf -y clean all
+
+RUN useradd -ms /bin/bash firefox
+USER firefox
