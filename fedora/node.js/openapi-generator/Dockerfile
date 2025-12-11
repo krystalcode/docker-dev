@@ -1,7 +1,15 @@
-FROM docker.io/krystalcode/f_nvm
+ARG FEDORA_VERSION="latest"
+ARG NVM_VERSION="latest"
 
-# Set the Node.js version to the latest version available.
-ENV NODE_VERSION 19
+FROM docker.io/krystalcode/f_atuin:${FEDORA_VERSION}-latest AS atuin
+
+FROM docker.io/krystalcode/f_just:${FEDORA_VERSION}-latest AS just
+
+FROM docker.io/krystalcode/f_nvm:${FEDORA_VERSION}-${NVM_VERSION}
+
+# Set the Node.js version to the latest available.
+ARG NODE_VERSION="22"
+ARG OPENAPI_GENERATOR_VERSION="latest"
 
     # Install JAVA, required by the OpenAPI generator CLI.
 RUN dnf install -y java-latest-openjdk && \
@@ -12,6 +20,6 @@ RUN dnf install -y java-latest-openjdk && \
     nvm install ${NODE_VERSION} && \
     printf '\n%s\n%s%s\n\n' '# Use default node version.' "nvm use " ${NODE_VERSION}  >> ~/.bashrc && \
 
-    # Globally install 'gulp'.
+    # Globally install 'openapi-generator-cli'.
     nvm use ${NODE_VERSION} && \
-    npm install @openapitools/openapi-generator-cli -g
+    npm install @openapitools/openapi-generator-cli@"${OPENAPI_GENERATOR_VERSION}" -g
