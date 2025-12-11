@@ -23,3 +23,16 @@ RUN dnf install -y java-latest-openjdk && \
     # Globally install 'openapi-generator-cli'.
     nvm use ${NODE_VERSION} && \
     npm install @openapitools/openapi-generator-cli@"${OPENAPI_GENERATOR_VERSION}" -g
+
+# Instal `yq`, useful for converting JSON to YAML when needed.
+ENV YQ_REPO="mikefarah/yq"
+ENV YQ_VERSION="latest"
+RUN <<COMMAND
+set -eux
+if [ "${YQ_VERSION}" = "latest" ];
+then
+    YQ_VERSION=$(curl --silent "https://api.github.com/repos/${YQ_REPO}/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+fi
+    curl -L -o /usr/bin/yq https://github.com/${YQ_REPO}/releases/download/${YQ_VERSION}/yq_linux_amd64 && \
+    chmod +x /usr/bin/yq
+COMMAND
