@@ -36,3 +36,11 @@ fi
     curl -L -o /usr/bin/yq https://github.com/${YQ_REPO}/releases/download/${YQ_VERSION}/yq_linux_amd64 && \
     chmod +x /usr/bin/yq
 COMMAND
+
+# Atuin.
+COPY --from=atuin /usr/bin/atuin /usr/bin/
+COPY --from=atuin /root/.bashrc.d/atuin-client.sh /root/.bashrc.d/
+
+# Just.
+COPY --from=just /usr/bin/just /usr/bin/
+ADD ./commands/j /usr/local/bin/j
