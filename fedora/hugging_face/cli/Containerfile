@@ -1,0 +1,11 @@
+ARG FEDORA_VERSION="latest"
+
+FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
+
+    # Upgrade packages.
+RUN dnf -y upgrade && \
+    # Install Hugging Face Hub CLI.
+    dnf -y install python3-pip && \
+    pip install huggingface_hub && \
+    # Clean up.
+    dnf -y clean all
