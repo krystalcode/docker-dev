@@ -1,0 +1,26 @@
+ARG FEDORA_VERSION="latest"
+
+FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
+
+    # Upgrade packages.
+RUN dnf -y upgrade && \
+    # Install Hugging Face Hub CLI.
+    dnf -y install cmake gcc-c++ && \
+    # Clean up.
+    dnf -y clean all
+
+    # Build Stable Diffusion CPP.
+ENV MAKE_DIRECTORY=/tmp/stable-diffusion-make
+ENV REPOSITORY=https://github.com/leejet/stable-diffusion.cpp.git
+
+RUN mkdir ${MAKE_DIRECTORY} && \
+    cd ${MAKE_DIRECTORY} && \
+    git clone --recursive --depth=1 -b master ${REPOSITORY} && \
+    cd stable-diffusion.cpp && \
+    git submodule init && \
+    git submodule update && \
+    mkdir build && cd build && \
+    cmake .. && \
+    cmake --build . --config Release && \
+    mv bin/sd-cli /usr/local/bin && \
+    mv bin/sd-server /usr/local/bin
