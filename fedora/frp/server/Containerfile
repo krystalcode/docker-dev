@@ -24,4 +24,4 @@ fi
     rm -rf ${FRP_TMP_DIR}
 COMMAND
 
-CMD ["frps", "-c /config/frps.toml"]
+ENTRYPOINT /bin/bash -c "frps -c /config/frps.toml"
