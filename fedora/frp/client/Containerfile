@@ -1,0 +1,27 @@
+ARG FEDORA_VERSION="latest"
+
+FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
+
+ARG FRP_VERSION="latest"
+ENV FRP_REPO="fatedier/frp"
+ENV FRP_TMP_DIR="/tmp/frp"
+
+RUN <<COMMAND
+set -eux
+if [ "${FRP_VERSION}" = "latest" ];
+then
+    FRP_VERSION=$(curl --silent "https://api.github.com/repos/${FRP_REPO}/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+fi
+    echo ${FRP_VERSION}
+    dirname="frp_${FRP_VERSION:1}_linux_amd64"
+    filename="${dirname}.tar.gz"
+    mkdir -p ${FRP_TMP_DIR}
+    cd ${FRP_TMP_DIR}
+    curl -L -O https://github.com/${FRP_REPO}/releases/download/${FRP_VERSION}/"${filename}" && \
+    tar -xvf "${filename}"
+    mv "${dirname}/frpc" /usr/bin/
+    chmod +x /usr/bin/frpc
+    rm -rf ${FRP_TMP_DIR}
+COMMAND
+
+ENTRYPOINT ["/usr/bin/frpc", "-c /config/frpc.toml"]
