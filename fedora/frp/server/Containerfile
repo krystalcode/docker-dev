@@ -23,3 +23,5 @@ fi
     chmod +x /usr/bin/frps
     rm -rf ${FRP_TMP_DIR}
 COMMAND
+
+ENTRYPOINT ["/usr/bin/frps", "-c /config/frps.toml"]
