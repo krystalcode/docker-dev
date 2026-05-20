@@ -1,0 +1,9 @@
+ARG FEDORA_VERSION="latest"
+
+FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
+
+ARG RUSTUP_PROFILE="default"
+
+RUN dnf -y install rustup && \
+    dnf -y clean all && \
+    rustup-init -y --profile ${RUSTUP_PROFILE}
