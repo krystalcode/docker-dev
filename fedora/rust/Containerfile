@@ -4,6 +4,6 @@ FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
 
 ARG RUSTUP_PROFILE="default"
 
-RUN dnf -y install rustup && \
+RUN dnf -y install rustup gcc && \
     dnf -y clean all && \
     rustup-init -y --profile ${RUSTUP_PROFILE}
