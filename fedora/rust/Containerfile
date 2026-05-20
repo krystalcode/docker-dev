@@ -6,5 +6,4 @@ ARG RUSTUP_PROFILE="default"
 
 RUN dnf -y install rustup gcc && \
     dnf -y clean all && \
-    rustup-init -y --profile ${RUSTUP_PROFILE} && \
-    cargo update
+    rustup-init -y --profile ${RUSTUP_PROFILE}
