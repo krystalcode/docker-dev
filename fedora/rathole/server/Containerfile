@@ -1,0 +1,41 @@
+ARG FEDORA_VERSION="latest"
+
+FROM docker.io/krystalcode/f_rust:${FEDORA_VERSION}-minimal AS rust
+
+# @I Change default version to "latest" once a release higher to v0.5.0 is made
+ARG RATHOLE_VERSION="main"
+ARG RATHOLE_PROFILE="tls"
+ENV RATHOLE_REPO="rathole-org/rathole"
+ENV RATHOLE_TMP_DIR="/tmp/rathole"
+
+RUN <<COMMAND
+set -eux
+if [ "${RATHOLE_VERSION}" = "latest" ];
+then
+    RATHOLE_VERSION=$(curl --silent "https://api.github.com/repos/${RATHOLE_REPO}/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+fi
+
+mkdir -p ${RATHOLE_TMP_DIR}
+cd ${RATHOLE_TMP_DIR}
+git clone --recursive --depth=1 --branch=${RATHOLE_VERSION} https://github.com/${RATHOLE_REPO}.git .
+
+. ${HOME}/.cargo/env
+
+if [ "${RATHOLE_PROFILE}" = "tls" ];
+then
+    dnf install -y openssl-devel
+    cargo build --release --no-default-features --features server,noise,native-tls,websocket-native-tls
+elif [ "${RATHOLE_PROFILE}" = "rustls" ];
+then
+    cargo build --release --no-default-features --features server,noise,rustls,websocket-rustls
+else
+    printf "Unknown rathole profile \n" "${RATHOLE_PROFILE}"
+    exit 1
+fi
+COMMAND
+
+FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
+
+COPY --from=rust /tmp/rathole/target/release/rathole /usr/bin/
+
+ENTRYPOINT /bin/bash -c "rathole --server /config/server.toml"
