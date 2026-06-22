@@ -1,13 +1,27 @@
 ARG FEDORA_VERSION="latest"
+ARG NVM_VERSION="latest"
 
 FROM docker.io/krystalcode/f_atuin:${FEDORA_VERSION}-latest AS atuin
 
 FROM docker.io/krystalcode/f_just:${FEDORA_VERSION}-latest AS just
 
-FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
+FROM docker.io/krystalcode/f_nvm:${FEDORA_VERSION}-${NVM_VERSION}
 
-RUN dnf -y install yt-dlp && \
+# Set the Node.js version to the latest available.
+ARG NODE_VERSION="26"
+
+# `libatomic` is required by Node JS.
+RUN dnf -y install yt-dlp libatomic && \
     dnf -y clean all
+
+    # Install the right Node.js version and set it as default.
+RUN . ${HOME}/.nvm/nvm.sh && \
+    nvm install ${NODE_VERSION} && \
+    printf '\n%s\n%s%s\n\n' '# Use default node version.' "nvm use " ${NODE_VERSION}  >> ~/.bashrc && \
+
+    # Globally install Deno, recommended JavaScript engine for `yt-dlp`.
+    nvm use ${NODE_VERSION} && \
+    npm install -g deno
 
 # Add "atuin".
 COPY --from=atuin /usr/bin/atuin /usr/bin/
