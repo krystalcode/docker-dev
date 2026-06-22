@@ -11,8 +11,9 @@ FROM docker.io/krystalcode/f_nvm:${FEDORA_VERSION}-${NVM_VERSION}
 ARG NODE_VERSION="26"
 
 # `libatomic` is required by Node JS.
-RUN dnf -y install yt-dlp libatomic && \
-    dnf -y clean all
+RUN dnf -y install yt-dlp libatomic pip && \
+    dnf -y clean all && \
+    pip install -U yt-dlp-ejs
 
     # Install the right Node.js version and set it as default.
 RUN . ${HOME}/.nvm/nvm.sh && \
