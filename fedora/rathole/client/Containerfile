@@ -4,6 +4,8 @@ FROM docker.io/krystalcode/f_rust:${FEDORA_VERSION}-minimal AS rust
 
 # @I Change default version to "latest" once a release higher to v0.5.0 is made
 ARG RATHOLE_VERSION="main"
+# @I Make "all" the default profile after we make that build
+ARG RATHOLE_PROFILE="tls"
 ENV RATHOLE_REPO="rathole-org/rathole"
 ENV RATHOLE_TMP_DIR="/tmp/rathole"
 
@@ -20,7 +22,40 @@ git clone --recursive --depth=1 --branch=${RATHOLE_VERSION} https://github.com/$
 
 . ${HOME}/.cargo/env
 
-cargo build --release --no-default-features --features client,noise
+# @I Optimize binary
+# @I "all" profile does not build
+if [ "${RATHOLE_PROFILE}" = "all" ];
+then
+    dnf install -y openssl-devel
+    cargo build --release --no-default-features --features client,native-tls,websocket-native-tls,rustls,websocket-rustls,noise
+elif [ "${RATHOLE_PROFILE}" = "tls" ];
+then
+    dnf install -y openssl-devel
+    cargo build --release --no-default-features --features client,native-tls
+# @I "websocket-tls" profile is untested and not built yet
+elif [ "${RATHOLE_PROFILE}" = "websocket-tls" ];
+then
+    dnf install -y openssl-devel
+    cargo build --release --no-default-features --features client,websocket-native-tls
+elif [ "${RATHOLE_PROFILE}" = "rustls" ];
+then
+    cargo build --release --no-default-features --features client,rustls
+# @I "websocket-rustls" profile is untested and not built yet
+elif [ "${RATHOLE_PROFILE}" = "websocket-rustls" ];
+then
+    cargo build --release --no-default-features --features client,websocket-rustls
+# @I "noise" profile is untested and not built yet
+elif [ "${RATHOLE_PROFILE}" = "noise" ];
+then
+    cargo build --release --no-default-features --features client,noise
+# @I "tcp" profile is untested and not built yet
+elif [ "${RATHOLE_PROFILE}" = "tcp" ];
+then
+    cargo build --release --no-default-features --features client
+else
+    printf "Unknown rathole profile \n" "${RATHOLE_PROFILE}"
+    exit 1
+fi
 COMMAND
 
 FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
