@@ -1,0 +1,24 @@
+ARG FEDORA_VERSION="latest"
+
+FROM docker.io/krystalcode/f_atuin:${FEDORA_VERSION}-latest AS atuin
+
+FROM docker.io/krystalcode/f_just:${FEDORA_VERSION}-latest AS just
+
+FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
+
+# The `fedora-free` package provided by the default repository has limited codec
+# support since it provides open codecs only.
+RUN dnf -y install \
+    https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm && \
+    dnf -y install \
+    https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm && \
+    dnf -y install ffmpeg && \
+    dnf -y clean all
+
+# Add "atuin".
+COPY --from=atuin /usr/bin/atuin /usr/bin/
+COPY --from=atuin /root/.bashrc.d/atuin-client.sh /root/.bashrc.d/
+
+# Add "just".
+COPY --from=just /usr/bin/just /usr/bin/
+COPY --from=just /root/.bashrc.d/just.aliases.sh /root/.bashrc.d/
