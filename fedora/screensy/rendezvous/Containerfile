@@ -48,8 +48,8 @@ WORKDIR ${SCREENSY_APP_DIR}
 COPY --from=node ${SCREENSY_BUILD_DIR}/server.js ./
 COPY --from=node ${SCREENSY_BUILD_DIR}/server.js.map ./
 COPY --from=node ${SCREENSY_BUILD_DIR}/server.ts ./
-COPY  --from=node ${SCREENSY_BUILD_DIR}/package.json ./
-COPY  --from=node ${SCREENSY_BUILD_DIR}/package-lock.json ./
+COPY --from=node ${SCREENSY_BUILD_DIR}/package.json ./
+COPY --from=node ${SCREENSY_BUILD_DIR}/package-lock.json ./
 
     # Install the right Node.js version and set it as default.
 RUN . ${HOME}/.nvm/nvm.sh && \
