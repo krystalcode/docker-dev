@@ -1,0 +1,68 @@
+ARG FEDORA_VERSION="latest"
+ARG NVM_VERSION="latest"
+
+FROM docker.io/krystalcode/f_nvm:${FEDORA_VERSION}-${NVM_VERSION} as node
+
+# Set the Node.js version to the latest available.
+ARG NODE_VERSION="26"
+
+RUN dnf install -y jq && dnf clean all
+
+ENV SCREENSY_REPO="screensy/screensy"
+ENV SCREENSY_VERSION="latest"
+ENV SCREENSY_TMP_DIR="/app"
+RUN <<COMMAND
+set -eux
+if [ "${SCREENSY_VERSION}" = "latest" ];
+then
+    SCREENSY_VERSION=$(curl --silent "https://api.github.com/repos/${SCREENSY_REPO}/tags" | jq -r '.[0].name' | sed -E 's/.*"([^"]+)".*/\1/')
+fi
+
+#
+
+echo ":atest versopm" "${SCREENSY_VERSION}"
+mkdir -p ${SCREENSY_TMP_DIR}
+cd ${SCREENSY_TMP_DIR}
+git clone --recursive --depth=1 --branch=${SCREENSY_VERSION} https://github.com/${SCREENSY_REPO}.git .
+COMMAND
+
+    # Install the right Node.js version and set it as default.
+RUN . ${HOME}/.nvm/nvm.sh && \
+    nvm install ${NODE_VERSION} && \
+    printf '\n%s\n%s%s\n\n' '# Use default node version.' "nvm use " ${NODE_VERSION}  >> ~/.bashrc && \
+    nvm use ${NODE_VERSION} && \
+    cd ${SCREENSY_TMP_DIR}/screensy-rendezvous && \
+    npm install --ommit=dev && \
+    npx tsc
+
+FROM docker.io/krystalcode/f_nvm:${FEDORA_VERSION}-${NVM_VERSION}
+
+# Set the Node.js version to the latest available.
+ARG NODE_VERSION="26"
+
+ENV SCREENSY_APP_DIR="/app"
+ENV SCREENSY_BUILD_DIR="/app/screensy-rendezvous"
+
+WORKDIR ${SCREENSY_APP_DIR}
+
+COPY --from=node ${SCREENSY_BUILD_DIR}/server.js ./
+COPY --from=node ${SCREENSY_BUILD_DIR}/server.js.map ./
+COPY --from=node ${SCREENSY_BUILD_DIR}/server.ts ./
+COPY  --from=node ${SCREENSY_BUILD_DIR}/package.json ./
+COPY  --from=node ${SCREENSY_BUILD_DIR}/package-lock.json ./
+
+    # Install the right Node.js version and set it as default.
+RUN . ${HOME}/.nvm/nvm.sh && \
+    nvm install ${NODE_VERSION} && \
+    printf '\n%s\n%s%s\n\n' '# Use default node version.' "nvm use " ${NODE_VERSION}  >> ~/.bashrc && \
+    nvm use ${NODE_VERSION} && \
+    cd ${SCREENSY_APP_DIR} && \
+    npm install --ommit=dev
+
+EXPOSE 4000
+
+ENTRYPOINT ["/bin/bash", "-c", ". ${HOME}/.nvm/nvm.sh && exec \"$@\"", "--"]
+
+# Run the container passing "npm start" at the end. Adding this here as part of
+# the command does not work - an unexpected token error is raised.
+CMD ["/bin/bash"]
