@@ -1,0 +1,21 @@
+ARG FEDORA_VERSION="latest"
+
+FROM docker.io/krystalcode/f_rust:${FEDORA_VERSION}-minimal AS rust
+
+ARG ARGC_VERSION="latest"
+ENV ARGC_REPO="sigoden/argc"
+
+RUN <<COMMAND
+set -eux
+if [ "${ARGC_VERSION}" = "latest" ];
+then
+    ARGC_VERSION=$(curl --silent "https://api.github.com/repos/${ARGC_REPO}/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+fi
+
+. ${HOME}/.cargo/env
+cargo install argc --version ${ARGC_VERSION/v/}
+COMMAND
+
+FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
+
+COPY --from=rust /root/.cargo/bin/argc /usr/bin/
