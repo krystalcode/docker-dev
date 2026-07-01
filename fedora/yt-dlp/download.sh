@@ -22,6 +22,9 @@ profile=$1
 destination=$2
 link=$3
 
+# This is to recognize the `deno` installation, globally installed by `npm`.
+. ${HOME}/.nvm/nvm.sh && \
+
 case "${profile}" in
     best)
         yt-dlp \
