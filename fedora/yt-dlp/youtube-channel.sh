@@ -32,7 +32,7 @@ else
     destination=$3
 fi
 destination_realpath="/data/${destination}"
-if [ -d "${destination_realpath}" ]; then
+if [ ! -d "${destination_realpath}" ]; then
     echo "The destination folder \"${destination_realpath}\" does not exist"
     exit
 fi
@@ -41,7 +41,7 @@ channel_url="https://www.youtube.com/@${channel_id}"
 channel_destination="${destination}/YouTube/${channel_id}"
 channel_realpath="${destination_realpath}/YouTube/${channel_id}"
 
-if [ -d "${channel_realpath}" ]; then
+if [ ! -d "${channel_realpath}" ]; then
     mkdir "${channel_realpath}"
 fi
 
