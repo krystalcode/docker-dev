@@ -26,6 +26,9 @@ RUN . ${HOME}/.nvm/nvm.sh && \
     npm install -g deno
 
 COPY download.sh /usr/local/bin/download
+COPY youtube-channel.sh /usr/local/bin/youtube-channel
+
+ENV YT_DLP_DEFAULT_PROFILE="normal"
 
 # Add "atuin".
 COPY --from=atuin /usr/bin/atuin /usr/bin/
