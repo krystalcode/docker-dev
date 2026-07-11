@@ -1,0 +1,36 @@
+ARG FEDORA_VERSION="latest"
+
+FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
+
+# `bc` is noted as a warning by the installation script.
+# `diff` is noted as an error by the installation script, even though
+# installation successfully finishes.
+RUN dnf -y install bc diff && \
+    dnf -y clean all
+
+
+ARG MODERNISH_VERSION="latest"
+ENV MODERNISH_REPO="modernish/modernish"
+ENV MODERNISH_TMP_DIR=/tmp/modernish
+
+RUN <<COMMAND
+set -eux
+if [ "${MODERNISH_VERSION}" = "latest" ];
+then
+    MODERNISH_VERSION=$(curl --silent "https://api.github.com/repos/${MODERNISH_REPO}/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+fi
+if [ "${MODERNISH_VERSION}" = "unstable" ];
+then
+    MODERNISH_VERSION="master"
+fi
+
+mkdir -p ${MODERNISH_TMP_DIR} && \
+cd ${MODERNISH_TMP_DIR} && \
+git clone --recursive --depth=1 -b ${MODERNISH_VERSION} https://github.com/${MODERNISH_REPO}.git . && \
+./install.sh -n -s /bin/bash && \
+
+# All `modernish` are installed in the following directories.
+# /usr/local/share/doc/modernish
+# /usr/local/lib/modernish
+rm -rf ${MODERNISH_TMP_DIR}
+COMMAND
