@@ -18,11 +18,13 @@ fi
 # Remove the "v" version prefix, as required by the file downloaded by `curl`
 # below.
 GHCUP_VERSION=${GHCUP_VERSION#?}
+# Downloading the file on a separate `RUN` command fails as Not Found,
+# `GCHUP_VERSION` is likely not available with the value calculated here.
+curl -L https://github.com/haskell/ghcup-hs/releases/download/v${GHCUP_VERSION}/x86_64-linux-ghcup-${GHCUP_VERSION} -o /usr/local/bin/ghcup
+chmod +x /usr/local/bin/ghcup
 COMMAND
 
-RUN curl -L https://github.com/haskell/ghcup-hs/releases/download/v${GHCUP_VERSION}/x86_64-linux-ghcup-${GHCUP_VERSION} -o /usr/local/bin/ghcup && \
-    chmod +x /usr/local/bin/ghcup && \
-    dnf install -y \
+RUN dnf install -y \
     gcc \
     gcc-c++ \
     gmp \
