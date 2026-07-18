@@ -3,10 +3,6 @@ ARG FEDORA_VERSION="latest"
 FROM docker.io/krystalcode/f_fedora:${FEDORA_VERSION}
 
 ARG GHCUP_VERSION="latest"
-
-COPY .bashrc.d/variables.sh /root/.bashrc.d/ghcup-variables.sh
-
-ARG GHCUP_VERSION="latest"
 ENV GHCUP_REPO="haskell/ghcup-hs"
 
 RUN <<COMMAND
@@ -35,3 +31,5 @@ RUN dnf install -y \
     xz \
     perl && \
     dnf -y clean all
+
+COPY .bashrc.d/variables.sh /root/.bashrc.d/ghcup-variables.sh
