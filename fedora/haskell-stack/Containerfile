@@ -12,10 +12,13 @@ ARG STACK_VERSION="recommended"
 ARG CABAL_VERSION="recommended"
 ARG HLS_VERSION="recommended"
 
-RUN ghcup install ghc --set ${GHC_VERSION} && \
-    ghcup install stack --set ${STACK_VERSION} && \
-    ghcup install cabal --set ${CABAL_VERSION} && \
-    ghcup install hls --set ${HLS_VERSION}
+RUN <<COMMAND
+set -eux
+[ -z "${GHC_VERSION}" ] || ghcup install ghc --set ${GHC_VERSION}
+[ -z "${STACK_VERSION}" ] || ghcup install stack --set ${STACK_VERSION}
+[ -z "${CABAL_VERSION}" ] || ghcup install cabal --set ${CABAL_VERSION}
+[ -z "${HLS_VERSION}" ] || ghcup install hls --set ${HLS_VERSION}
+COMMAND
 
 # Add "atuin".
 COPY --from=atuin /usr/bin/atuin /usr/bin/
